@@ -489,3 +489,17 @@ html[data-theme="night"] .theme-thumb { transform: translateX(38px); }
   .project-copy h3 { font-size: 1.4rem; }
   .footer-wrap { flex-direction: column; text-align: center; }
 }
+
+/* Logotipo del navbar adaptado al tema */
+html[data-theme="day"] .brand-mark {
+  height: 52px;
+  width: auto;
+}
+html[data-theme="night"] .brand-mark {
+  height: 70px;
+  width: auto;
+}
+@media (max-width: 760px) {
+  html[data-theme="day"] .brand-mark { height: 46px; }
+  html[data-theme="night"] .brand-mark { height: 58px; }
+}

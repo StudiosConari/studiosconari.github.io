@@ -3,14 +3,21 @@
   const toggle = document.getElementById('themeToggle');
   const label = document.getElementById('themeLabel');
   const year = document.getElementById('year');
+  const brand = document.getElementById('headerBrandMark');
   const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
   const storedTheme = localStorage.getItem('studios-conari-theme');
+
+  const logos = {
+    day: 'assets/header-wordmark-transparent.png',
+    night: 'assets/header-wordmark-night-transparent.png'
+  };
 
   const applyTheme = (theme) => {
     root.setAttribute('data-theme', theme);
     const night = theme === 'night';
     if (toggle) toggle.setAttribute('aria-pressed', String(night));
     if (label) label.textContent = night ? 'Modo nocturno' : 'Modo diurno';
+    if (brand) brand.src = logos[theme];
   };
 
   applyTheme(storedTheme || (prefersLight ? 'day' : 'night'));
