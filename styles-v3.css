@@ -492,14 +492,14 @@ html[data-theme="night"] .theme-thumb { transform: translateX(38px); }
 
 /* Logotipo del navbar adaptado al tema */
 html[data-theme="day"] .brand-mark {
-  height: 52px;
+  height: 58px;
   width: auto;
 }
 html[data-theme="night"] .brand-mark {
-  height: 70px;
+  height: 58px;
   width: auto;
 }
 @media (max-width: 760px) {
-  html[data-theme="day"] .brand-mark { height: 46px; }
-  html[data-theme="night"] .brand-mark { height: 58px; }
+  html[data-theme="day"] .brand-mark { height: 48px; }
+  html[data-theme="night"] .brand-mark { height: 48px; }
 }
