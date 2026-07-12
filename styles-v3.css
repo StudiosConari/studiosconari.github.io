@@ -105,11 +105,18 @@ button { font: inherit; }
 .brand {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  width: 220px;
+  height: 68px;
+  flex: 0 0 220px;
+  overflow: visible;
 }
 .brand-mark {
-  height: 52px;
-  width: auto;
+  width: 205px;
+  height: 62px;
   object-fit: contain;
+  object-position: center center;
+  display: block;
   filter: drop-shadow(0 8px 18px rgba(0,0,0,0.12));
 }
 .main-nav {
@@ -492,14 +499,31 @@ html[data-theme="night"] .theme-thumb { transform: translateX(38px); }
 
 /* Logotipo del navbar adaptado al tema */
 html[data-theme="day"] .brand-mark {
-  height: 58px;
+  height: 52px;
   width: auto;
 }
 html[data-theme="night"] .brand-mark {
-  height: 58px;
+  height: 70px;
   width: auto;
 }
 @media (max-width: 760px) {
-  html[data-theme="day"] .brand-mark { height: 48px; }
-  html[data-theme="night"] .brand-mark { height: 48px; }
+  html[data-theme="day"] .brand-mark { height: 46px; }
+  html[data-theme="night"] .brand-mark { height: 58px; }
+}
+
+/* Corrección definitiva del logotipo del navbar */
+html[data-theme="day"] .brand-mark,
+html[data-theme="night"] .brand-mark {
+  width: 205px !important;
+  height: 62px !important;
+  object-fit: contain;
+  object-position: center center;
+}
+@media (max-width: 760px) {
+  .brand { width: 184px; height: 58px; flex-basis: 184px; }
+  html[data-theme="day"] .brand-mark,
+  html[data-theme="night"] .brand-mark {
+    width: 172px !important;
+    height: 52px !important;
+  }
 }
