@@ -17,3 +17,13 @@ toggle?.addEventListener('click', () => {
 });
 
 if(year) year.textContent = new Date().getFullYear();
+
+
+// Navegación robusta al inicio desde el enlace del pie de página.
+document.querySelectorAll('[data-scroll-top]').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    history.replaceState(null, '', '#inicio');
+  });
+});

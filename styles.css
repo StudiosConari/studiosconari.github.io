@@ -383,3 +383,7 @@ html[data-theme="day"] .site-footer{background:rgba(245,248,252,.72)}
     flex-basis:36px;
   }
 }
+
+
+#inicio{scroll-margin-top:92px}
+.footer-row a{position:relative;z-index:2;cursor:pointer}
