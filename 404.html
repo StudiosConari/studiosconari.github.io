@@ -1,12 +1,207 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="night">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>404 | Studios Conari</title>
-  <meta http-equiv="refresh" content="0; url=./index.html">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Studios Conari | Donde nacen mundos y leyendas eternas</title>
+  <meta name="description" content="Studios Conari: videojuegos, universos narrativos e identidades visuales con una voz propia.">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <p>Redirigiendo a <a href="./index.html">Studios Conari</a>…</p>
+  <header class="site-header" id="inicio">
+    <div class="shell nav-row">
+      <a class="brand" href="#inicio" aria-label="Studios Conari, inicio">
+        <img id="brandLogo" src="assets/header-wordmark-night-transparent.png" alt="Studios Conari">
+      </a>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="#estudio">El estudio</a>
+        <a href="#esencia">Esencia</a>
+        <a href="#trayectoria">Trayectoria</a>
+        <a href="#marca">Marca</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar modo visual" aria-pressed="true">
+        <span>☀</span><i></i><span>☾</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero section-full" aria-label="Presentación principal">
+      <div class="shell hero-content">
+        <p class="eyebrow">Estudio creativo chileno</p>
+        <h1>Donde nacen<br>mundos<br>y <span>leyendas<br>eternas.</span></h1>
+        <p class="lead">Creamos videojuegos y universos narrativos donde convergen arte, tecnología e investigación cultural.</p>
+        <div class="actions">
+          <a class="btn primary" href="#estudio">Conocer el estudio →</a>
+          <a class="btn ghost" href="#trayectoria">Ver trayectoria</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="estudio" class="section-full study-section">
+      <div class="shell intro-grid">
+        <div class="study-heading">
+          <p class="eyebrow">El estudio</p>
+          <h2>Una casa creativa para universos originales</h2>
+        </div>
+        <article class="glass-panel prose-panel">
+          <p><strong>Studios Conari SpA</strong> es un estudio chileno orientado a la creación de videojuegos, experiencias interactivas y propiedades intelectuales originales. Nuestra mirada combina narrativa, arte, diseño de experiencia, desarrollo técnico y documentación creativa.</p>
+          <p>Entendemos cada proyecto como una construcción integral: primero se investiga, luego se define una identidad, después se prototipa y finalmente se proyecta una obra capaz de sostenerse tanto estética como técnicamente.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="esencia" class="section-full essence-section">
+      <div class="shell">
+        <div class="section-heading centered">
+          <p class="eyebrow">Nuestra esencia</p>
+          <h2>Arte, relato y tecnología con una misma dirección</h2>
+        </div>
+
+        <div class="essence-cards">
+          <article class="glass-panel essence-card">
+            <div style="height: 50%; width: 50%;"><img src="assets/logo-identidad.png" alt=""></div>
+            <h3>Identidad propia</h3>
+            <p>Diseñamos universos con una voz visual y narrativa definida, evitando soluciones genéricas o intercambiables.</p>
+          </article>
+          <article class="glass-panel essence-card">
+            <div style="height: 50%; width: 50%;"><img src="assets/logo-investigacion.png" alt=""></div>
+            <h3>Investigación aplicada</h3>
+            <p>Trabajamos con referencias, documentación y análisis antes de fijar decisiones de dirección de arte o diseño.</p>
+          </article>
+          <article class="glass-panel essence-card">
+            <div style="height: 50%; width: 50%;"><img src="assets/logo-proyeccion.png" alt=""></div>
+            <h3>Proyección transmedia</h3>
+            <p>Concebimos cada IP como una base viva para crecer hacia videojuegos, materiales editoriales y nuevas plataformas.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="trayectoria" class="section-full trajectory-section">
+      <div class="shell">
+        <div class="section-heading trajectory-heading">
+          <p class="eyebrow">Trayectoria del estudio</p>
+          <h2>Del aprendizaje técnico a la construcción de IP propias</h2>
+        </div>
+
+        <div class="glass-panel trajectory-board">
+          <article class="trajectory-item">
+            <div class="stage">01 · Primera etapa formativa</div>
+            <img src="assets/banner-origen.png" alt="Banner de Proyecto Origen">
+            <h3>Proyecto Origen</h3>
+            <p>Prototipo RPG 2D top-down desarrollado en Godot Engine. Exploramos sistemas, mecánicas y el lenguaje visual.</p>
+          </article>
+
+          <article class="trajectory-item">
+            <div class="stage">02 · Segunda etapa formativa</div>
+            <img src="assets/banner-resonancia.png" alt="Banner de Proyecto Resonancia">
+            <h3>Proyecto Resonancia</h3>
+            <p>Videojuego de ritmo arcade con biblioteca musical, versus y gameplay de precisión.</p>
+          </article>
+
+          <article class="trajectory-item">
+            <div class="stage">03 · Próximo proyecto</div>
+            <img src="assets/banner-vilu.png" alt="Banner de VILU, próximo proyecto de Studios Conari">
+            <h3>VILU</h3>
+            <p>Nuevo proyecto original en desarrollo. Una leyenda espera ser contada.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="marca" class="section-full brand-section">
+      <div class="shell brand-grid">
+        <article class="glass-panel brand-copy">
+          <p class="eyebrow">La marca</p>
+          <h2>Un sistema visual con significado</h2>
+          <p>El emblema de Studios Conari reúne los principios que orientan al estudio: imaginación, conocimiento, identidad territorial y construcción de mundos. Cada elemento representa una parte del proceso creativo que transforma una idea en un universo interactivo.</p>
+          <ul class="brand-symbols">
+            <li>
+              <span class="brand-symbol-icon" aria-hidden="true"><img src="assets/logo-dragon.png" alt=""></span>
+              <span><strong>Dragón:</strong> representa la imaginación, la fuerza creativa y la protección de los mundos construidos por el estudio. Su forma integra la «C» de Conari.</span>
+            </li>
+            <li>
+              <span class="brand-symbol-icon" aria-hidden="true"><img src="assets/logo-arbol.png" alt=""></span>
+              <span><strong>Árbol y raíces:</strong> expresan crecimiento, memoria, investigación y la conexión entre culturas, historias y disciplinas creativas.</span>
+            </li>
+            <li>
+              <span class="brand-symbol-icon" aria-hidden="true"><img src="assets/logo-libro.png" alt=""></span>
+              <span><strong>Libro abierto:</strong> representa la narrativa, el conocimiento, la documentación y las historias desde las que nacen nuevos mundos.</span>
+            </li>
+            <li>
+              <span class="brand-symbol-icon" aria-hidden="true"><img src="assets/logo-castillo-montaña-bosque.png" alt=""></span>
+              <span><strong>Castillo, bosque y montañas:</strong> reflejan el origen chileno del estudio, su vínculo con el territorio y su vocación por construir universos vivos y habitables.</span>
+            </li>
+            <li>
+              <span class="brand-symbol-icon" aria-hidden="true"><img src="assets/logo-sol-luna.png" alt=""></span>
+              <span><strong>Sol y luna:</strong> simbolizan la dualidad entre claridad y misterio, razón e intuición, tecnología y arte.</span>
+            </li>
+            <li>
+              <span class="brand-symbol-icon" aria-hidden="true"><img src="assets/logo-estrella.png" alt=""></span>
+              <span><strong>Estrellas:</strong> representan la inspiración, la guía creativa y las infinitas posibilidades que pueden surgir en cada universo.</span>
+            </li>
+          </ul>
+        </article>
+
+        <figure class="emblem-wrap">
+          <img src="assets/emblem-dragon.png" alt="Emblema de Studios Conari con dragón, árbol, castillo, montañas, sol y luna">
+        </figure>
+      </div>
+    </section>
+
+    <section id="contacto" class="section-full contact-section">
+      <div class="shell contact-grid">
+        <div class="contact-copy">
+          <p class="eyebrow">Contacto</p>
+          <h2>Conversemos sobre mundos, proyectos y colaboraciones</h2>
+          <p>Estamos en etapa de consolidación de estudio y apertura de redes. Si deseas conocer más sobre nuestro trabajo, escribirnos o seguir el desarrollo de nuestras futuras obras, puedes hacerlo por estos canales.</p>
+        </div>
+
+        <div class="contact-list">
+          <a class="glass-panel contact-card contact-card--icon" href="mailto:studiosconari@gmail.com">
+            <span class="contact-icon" aria-hidden="true">
+              <img src="assets/logo-correo.png" alt="">
+            </span>
+            <span class="contact-info">
+              <span class="contact-label">Correo</span>
+              <strong>studiosconari@gmail.com</strong>
+            </span>
+          </a>
+
+          <a class="glass-panel contact-card contact-card--icon" href="https://github.com/StudiosConari" target="_blank" rel="noreferrer noopener">
+            <span class="contact-icon" aria-hidden="true">
+              <img src="assets/logo-github.png" alt="">
+            </span>
+            <span class="contact-info">
+              <span class="contact-label">GitHub</span>
+              <strong>github.com/StudiosConari</strong>
+            </span>
+          </a>
+
+          <a class="glass-panel contact-card contact-card--icon" href="https://www.instagram.com/studiosconari/" target="_blank" rel="noreferrer noopener">
+            <span class="contact-icon" aria-hidden="true">
+              <img src="assets/logo-instagram.png" alt="">
+            </span>
+            <span class="contact-info">
+              <span class="contact-label">Instagram</span>
+              <strong>@studiosconari</strong>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-row">
+      <p>© <span id="year"></span> Studios Conari SpA · Concepción, Chile</p>
+      <a href="#inicio">Volver arriba</a>
+    </div>
+  </footer>
 </body>
 </html>
