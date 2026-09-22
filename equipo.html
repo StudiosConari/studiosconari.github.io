@@ -37,13 +37,15 @@
   </script>
 
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="motion.css">
   <link rel="stylesheet" href="equipo.css">
   <script src="script.js" defer></script>
+  <script src="motion.js" defer></script>
   <script src="equipo.js" defer></script>
 </head>
 <body>
   <!-- Barra de avance de lectura -->
-  <div class="tm-progreso" aria-hidden="true"><i></i></div>
+  <div class="mo-progreso" aria-hidden="true"><i></i></div>
 
   <header class="site-header">
     <div class="shell nav-row">
@@ -64,6 +66,7 @@
         <a href="index.html#estudio">El estudio</a>
         <a href="index.html#esencia">Esencia</a>
         <a href="index.html#trayectoria">Trayectoria</a>
+        <a href="index.html#marca">Marca</a>
         <a href="equipo.html" aria-current="page">Equipo</a>
         <a href="index.html#contacto">Contacto</a>
       </nav>
@@ -76,106 +79,85 @@
 
   <main>
     <!-- ================= HERO ================= -->
-    <section class="tm-hero" aria-label="Presentación del equipo">
-      <div class="tm-hero-layer tm-hero-glow" data-tm-speed="0.18" aria-hidden="true"></div>
-      <!-- Particulas y halo que sigue al puntero, ambos dibujados por equipo.js -->
-      <canvas class="tm-particulas" aria-hidden="true"></canvas>
-      <div class="tm-halo" aria-hidden="true"></div>
+    <!-- ================= HERO CON SELECTOR =================
+         El hero y la eleccion de integrante van juntos, para que los tres
+         nombres esten a la vista desde el primer pantallazo. -->
+    <section class="tm-hero" id="integrantes" data-mo-hero aria-labelledby="tm-titulo-equipo">
+      <div class="tm-hero-layer tm-hero-glow" data-mo-speed="0.18" aria-hidden="true"></div>
+      <canvas class="mo-particulas" aria-hidden="true"></canvas>
+      <div class="mo-halo" aria-hidden="true"></div>
 
       <div class="shell tm-hero-content">
-        <p class="eyebrow tm-reveal">Quiénes somos</p>
+        <p class="eyebrow mo-reveal">Quiénes somos</p>
         <!-- Cada linea entra desde abajo tras su propia mascara -->
-        <h1 class="tm-titulo">
-          <span class="tm-linea"><span>Tres oficios,</span></span>
-          <span class="tm-linea"><span>una misma <em>dirección</em>.</span></span>
+        <h1 class="tm-titulo mo-titulo" id="tm-titulo-equipo">
+          <span class="mo-linea"><span>Tres oficios,</span></span>
+          <span class="mo-linea"><span>una misma <em>dirección</em>.</span></span>
         </h1>
-        <p class="tm-lead tm-reveal" data-tm-delay="2">
-          Studios Conari es un estudio creativo chileno donde convergen el arte, la tecnología
-          y la investigación cultural. Detrás de cada proyecto hay un equipo que diseña,
-          programa, ilustra y modela: estas son las personas que lo hacen posible.
+        <p class="tm-lead mo-reveal" data-mo-delay="2">
+          Un estudio creativo chileno donde convergen el arte, la tecnología y la
+          investigación cultural. Estas son las personas que lo hacen posible.
         </p>
 
-        <div class="tm-stats tm-reveal" data-tm-delay="3">
-          <div class="tm-stat">
-            <b data-tm-count="3">3</b>
-            <span>Integrantes</span>
-          </div>
-          <div class="tm-stat">
-            <b data-tm-count="3">3</b>
-            <span>Proyectos</span>
-          </div>
-          <div class="tm-stat">
-            <b data-tm-count="4">4</b>
-            <span>Disciplinas</span>
-          </div>
-        </div>
+        <p class="tm-pista mo-reveal" data-mo-delay="3">Elige un integrante para conocer su trabajo</p>
+
+      <div class="tm-picker mo-reveal" data-mo-delay="4" role="tablist" aria-label="Integrantes de Studios Conari">
+
+        <button class="tm-card mo-tilt" type="button" role="tab" data-tm-for="maria-ines"
+                aria-selected="true" aria-controls="maria-ines" id="tab-maria-ines">
+          <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
+            <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
+            <circle class="tm-mono-dash" cx="60" cy="60" r="54"/>
+            <g class="tm-mono-orbita"><circle cx="60" cy="6" r="2.6"/></g>
+            <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
+            <text class="tm-mono-text" x="60" y="61">MC</text>
+          </svg>
+          <span class="tm-card-text">
+            <span class="tm-card-name">María Inés Cisterna Escobar</span>
+            <span class="tm-card-role">Dirección de arte</span>
+          </span>
+        </button>
+
+        <button class="tm-card mo-tilt" type="button" role="tab" data-tm-for="kevin"
+                aria-selected="false" aria-controls="kevin" id="tab-kevin">
+          <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
+            <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
+            <circle class="tm-mono-dash" cx="60" cy="60" r="54"/>
+            <g class="tm-mono-orbita"><circle cx="60" cy="6" r="2.6"/></g>
+            <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
+            <text class="tm-mono-text" x="60" y="61">KR</text>
+          </svg>
+          <span class="tm-card-text">
+            <span class="tm-card-name">Kevin Alexis del Río Morgado</span>
+            <span class="tm-card-role">Lead Programmer</span>
+          </span>
+        </button>
+
+        <button class="tm-card mo-tilt" type="button" role="tab" data-tm-for="elias"
+                aria-selected="false" aria-controls="elias" id="tab-elias">
+          <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
+            <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
+            <circle class="tm-mono-dash" cx="60" cy="60" r="54"/>
+            <g class="tm-mono-orbita"><circle cx="60" cy="6" r="2.6"/></g>
+            <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
+            <text class="tm-mono-text" x="60" y="61">EM</text>
+          </svg>
+          <span class="tm-card-text">
+            <span class="tm-card-name">Elías Alejandro Medel Collao</span>
+            <span class="tm-card-role tm-todo">Rol por definir</span>
+          </span>
+        </button>
+
+      </div>
       </div>
     </section>
 
-    <!-- ================= SELECTOR DE INTEGRANTES ================= -->
-    <section class="tm-section" id="integrantes" aria-labelledby="tm-titulo-equipo">
+    <!-- ================= DETALLE DEL INTEGRANTE ================= -->
+    <section class="tm-section tm-section--detalle" aria-label="Perfil del integrante seleccionado">
       <div class="shell">
-        <div class="tm-section-head tm-reveal">
-          <p class="eyebrow">El equipo</p>
-          <h2 id="tm-titulo-equipo">Elige un integrante para conocer su trabajo</h2>
-          <p>Cada perfil reúne su rol dentro del estudio, su trayectoria, las herramientas
-             con las que trabaja y una selección de piezas realizadas.</p>
-        </div>
-
-        <!-- Las tarjetas funcionan como pestañas: se navega con clic o con las flechas -->
-        <div class="tm-picker tm-reveal" data-tm-delay="1" role="tablist" aria-label="Integrantes de Studios Conari">
-
-          <button class="tm-card" type="button" role="tab" data-tm-for="maria-ines"
-                  aria-selected="true" aria-controls="maria-ines" id="tab-maria-ines">
-            <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
-              <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
-              <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
-              <circle class="tm-mono-dash" cx="60" cy="60" r="54"/>
-              <g class="tm-mono-orbita"><circle cx="60" cy="6" r="2.6"/></g>
-              <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
-              <text class="tm-mono-text" x="60" y="61">MC</text>
-            </svg>
-            <span class="tm-card-text">
-              <span class="tm-card-name">María Inés Cisterna Escobar</span>
-              <span class="tm-card-role">Dirección de arte</span>
-            </span>
-          </button>
-
-          <button class="tm-card" type="button" role="tab" data-tm-for="kevin"
-                  aria-selected="false" aria-controls="kevin" id="tab-kevin">
-            <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
-              <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
-              <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
-              <circle class="tm-mono-dash" cx="60" cy="60" r="54"/>
-              <g class="tm-mono-orbita"><circle cx="60" cy="6" r="2.6"/></g>
-              <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
-              <text class="tm-mono-text" x="60" y="61">KR</text>
-            </svg>
-            <span class="tm-card-text">
-              <span class="tm-card-name">Kevin Alexis del Río Morgado</span>
-              <span class="tm-card-role">Lead Programmer</span>
-            </span>
-          </button>
-
-          <button class="tm-card" type="button" role="tab" data-tm-for="elias"
-                  aria-selected="false" aria-controls="elias" id="tab-elias">
-            <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
-              <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
-              <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
-              <circle class="tm-mono-dash" cx="60" cy="60" r="54"/>
-              <g class="tm-mono-orbita"><circle cx="60" cy="6" r="2.6"/></g>
-              <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
-              <text class="tm-mono-text" x="60" y="61">EM</text>
-            </svg>
-            <span class="tm-card-text">
-              <span class="tm-card-name">Elías Alejandro Medel Collao</span>
-              <span class="tm-card-role tm-todo">Rol por definir</span>
-            </span>
-          </button>
-
-        </div>
-
-        <!-- ================= PANELES DE DETALLE ================= -->
         <div class="tm-stage">
 
           <!-- ---------- María Inés Cisterna Escobar ---------- -->
@@ -339,7 +321,6 @@
                       <li>Clip Studio Paint</li>
                       <li>Blender</li>
                       <li>Photoshop</li>
-                      <li>Godot</li>
                       <li>Java</li>
                       <li>Spring Boot</li>
                       <li>MySQL</li>
@@ -585,11 +566,25 @@
     <!-- ================= CAPACIDADES ================= -->
     <section class="tm-section" id="capacidades" aria-labelledby="tm-titulo-capacidades">
       <div class="shell">
-        <div class="tm-section-head tm-reveal">
+        <div class="tm-section-head mo-reveal">
           <p class="eyebrow">Qué hacemos</p>
           <h2 id="tm-titulo-capacidades">Cuatro disciplinas bajo una misma dirección creativa</h2>
           <p>El estudio cubre el recorrido completo de un proyecto: desde la identidad visual
              y la puesta en línea hasta el desarrollo del juego y sus activos tridimensionales.</p>
+        </div>
+        <div class="tm-stats mo-reveal" data-mo-delay="1">
+          <div class="tm-stat">
+            <b data-mo-count="3">3</b>
+            <span>Integrantes</span>
+          </div>
+          <div class="tm-stat">
+            <b data-mo-count="3">3</b>
+            <span>Proyectos</span>
+          </div>
+          <div class="tm-stat">
+            <b data-mo-count="4">4</b>
+            <span>Disciplinas</span>
+          </div>
         </div>
 
         <div class="tm-caps">
@@ -646,7 +641,7 @@
 
     <!-- ================= CIERRE ================= -->
     <section class="tm-cta">
-      <div class="shell tm-reveal">
+      <div class="shell mo-reveal">
         <h2>¿Tienes un proyecto en mente?</h2>
         <p>Trabajamos con estudios, marcas y proyectos culturales que buscan
            una voz visual y narrativa propia. Conversemos.</p>

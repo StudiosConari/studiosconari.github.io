@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" data-theme="night">
+<html lang="es" data-theme="night" class="no-js">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -46,6 +46,7 @@
        Debe ir aqui, sincrono y antes de la hoja de estilos. -->
   <script>
     (function () {
+      document.documentElement.classList.remove('no-js');
       try {
         var t = localStorage.getItem('conari-theme');
         if (t === 'day' || t === 'night') document.documentElement.dataset.theme = t;
@@ -54,9 +55,14 @@
   </script>
 
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="motion.css">
   <script src="script.js" defer></script>
+  <script src="motion.js" defer></script>
 </head>
 <body>
+  <!-- Barra de avance de lectura -->
+  <div class="mo-progreso" aria-hidden="true"><i></i></div>
+
   <header class="site-header">
     <div class="shell nav-row">
       <a class="brand" href="#inicio" aria-label="Studios Conari, inicio">
@@ -88,12 +94,22 @@
   </header>
 
   <main>
-    <section id="inicio" class="hero section-full" aria-label="Presentación principal">
+    <section id="inicio" class="hero section-full" data-mo-hero aria-label="Presentación principal">
+      <!-- Particulas y halo de puntero, dibujados por motion.js -->
+      <canvas class="mo-particulas" aria-hidden="true"></canvas>
+      <div class="mo-halo" aria-hidden="true"></div>
+
       <div class="shell hero-content">
-        <p class="eyebrow">Estudio creativo chileno</p>
-        <h1>Donde nacen<br>mundos<br>y <span>leyendas<br>eternas.</span></h1>
-        <p class="lead">Creamos videojuegos y universos narrativos donde convergen arte, tecnología e investigación cultural.</p>
-        <div class="actions">
+        <p class="eyebrow mo-reveal">Estudio creativo chileno</p>
+        <!-- Cada linea entra desde abajo tras su propia mascara -->
+        <h1 class="mo-titulo">
+          <span class="mo-linea"><span>Donde nacen</span></span>
+          <span class="mo-linea"><span>mundos</span></span>
+          <span class="mo-linea"><span>y <span class="hero-acento">leyendas</span></span></span>
+          <span class="mo-linea"><span class="hero-acento">eternas.</span></span>
+        </h1>
+        <p class="lead mo-reveal" data-mo-delay="4">Creamos videojuegos y universos narrativos donde convergen arte, tecnología e investigación cultural.</p>
+        <div class="actions mo-reveal" data-mo-delay="5">
           <a class="btn primary" href="#estudio">Conocer el estudio →</a>
           <a class="btn ghost" href="#trayectoria">Ver trayectoria</a>
         </div>
@@ -102,11 +118,11 @@
 
     <section id="estudio" class="section-full study-section">
       <div class="shell intro-grid">
-        <div class="study-heading">
+        <div class="study-heading mo-reveal">
           <p class="eyebrow">El estudio</p>
           <h2>Una casa creativa para universos originales</h2>
         </div>
-        <article class="glass-panel prose-panel">
+        <article class="glass-panel prose-panel mo-reveal" data-mo-delay="1">
           <p><strong>Studios Conari SpA</strong> es un estudio chileno orientado a la creación de videojuegos, experiencias interactivas y propiedades intelectuales originales. Nuestra mirada combina narrativa, arte, diseño de experiencia, desarrollo técnico y documentación creativa.</p>
           <p>Entendemos cada proyecto como una construcción integral: primero se investiga, luego se define una identidad, después se prototipa y finalmente se proyecta una obra capaz de sostenerse tanto estética como técnicamente.</p>
         </article>
@@ -115,23 +131,23 @@
 
     <section id="esencia" class="section-full essence-section">
       <div class="shell">
-        <div class="section-heading centered">
+        <div class="section-heading centered mo-reveal">
           <p class="eyebrow">Nuestra esencia</p>
           <h2>Arte, relato y tecnología con una misma dirección</h2>
         </div>
 
-        <div class="essence-cards">
-          <article class="glass-panel essence-card">
+        <div class="essence-cards mo-tilt-wrap">
+          <article class="glass-panel essence-card mo-reveal mo-tilt mo-brillo">
             <div style="height: 50%; width: 50%;"><img src="assets/logo-identidad.png" alt="" width="420" height="420" loading="lazy" decoding="async"></div>
             <h3>Identidad propia</h3>
             <p>Diseñamos universos con una voz visual y narrativa definida, evitando soluciones genéricas o intercambiables.</p>
           </article>
-          <article class="glass-panel essence-card">
+          <article class="glass-panel essence-card mo-reveal mo-tilt mo-brillo">
             <div style="height: 50%; width: 50%;"><img src="assets/logo-investigacion.png" alt="" width="420" height="420" loading="lazy" decoding="async"></div>
             <h3>Investigación aplicada</h3>
             <p>Trabajamos con referencias, documentación y análisis antes de fijar decisiones de dirección de arte o diseño.</p>
           </article>
-          <article class="glass-panel essence-card">
+          <article class="glass-panel essence-card mo-reveal mo-tilt mo-brillo">
             <div style="height: 50%; width: 50%;"><img src="assets/logo-proyeccion.png" alt="" width="420" height="420" loading="lazy" decoding="async"></div>
             <h3>Proyección transmedia</h3>
             <p>Concebimos cada IP como una base viva para crecer hacia videojuegos, materiales editoriales y nuevas plataformas.</p>
@@ -142,29 +158,29 @@
 
     <section id="trayectoria" class="section-full trajectory-section">
       <div class="shell">
-        <div class="section-heading trajectory-heading">
+        <div class="section-heading trajectory-heading mo-reveal">
           <p class="eyebrow">Trayectoria del estudio</p>
           <h2>Del aprendizaje técnico a la construcción de IP propias</h2>
         </div>
 
-        <div class="glass-panel trajectory-board">
+        <div class="glass-panel trajectory-board mo-reveal" data-mo-delay="1">
           <article class="trajectory-item">
             <div class="stage">01 · Primera etapa formativa</div>
-            <img src="assets/banner-origen.png" alt="Banner de Proyecto Origen" width="1024" height="358" loading="lazy" decoding="async">
+            <span class="mo-zoom"><img src="assets/banner-origen.png" alt="Banner de Proyecto Origen" width="1024" height="358" loading="lazy" decoding="async"></span>
             <h3>Proyecto Origen</h3>
             <p>Prototipo RPG 2D top-down desarrollado en Godot Engine. Exploramos sistemas, mecánicas y el lenguaje visual.</p>
           </article>
 
           <article class="trajectory-item">
             <div class="stage">02 · Segunda etapa formativa</div>
-            <img src="assets/banner-resonancia.png" alt="Banner de Proyecto Resonancia" width="1024" height="384" loading="lazy" decoding="async">
+            <span class="mo-zoom"><img src="assets/banner-resonancia.png" alt="Banner de Proyecto Resonancia" width="1024" height="384" loading="lazy" decoding="async"></span>
             <h3>Proyecto Resonancia</h3>
             <p>Videojuego de ritmo arcade con biblioteca musical, versus y gameplay de precisión.</p>
           </article>
 
           <article class="trajectory-item">
             <div class="stage">03 · Próximo proyecto</div>
-            <img src="assets/banner-vilu.png" alt="Banner de VILU, próximo proyecto de Studios Conari" width="1024" height="358" loading="lazy" decoding="async">
+            <span class="mo-zoom"><img src="assets/banner-vilu.png" alt="Banner de VILU, próximo proyecto de Studios Conari" width="1024" height="358" loading="lazy" decoding="async"></span>
             <h3>VILU</h3>
             <p>Nuevo proyecto original en desarrollo. Una leyenda espera ser contada.</p>
           </article>
@@ -178,7 +194,7 @@
           <p class="eyebrow">La marca</p>
           <h2>Un sistema visual con significado</h2>
           <p>El emblema de Studios Conari reúne los principios que orientan al estudio: imaginación, conocimiento, identidad territorial y construcción de mundos. Cada elemento representa una parte del proceso creativo que transforma una idea en un universo interactivo.</p>
-          <ul class="brand-symbols">
+          <ul class="brand-symbols mo-cadena">
             <li>
               <span class="brand-symbol-icon" aria-hidden="true"><img src="assets/logo-dragon.png" alt="" width="300" height="300" loading="lazy" decoding="async"></span>
               <span><strong>Dragón:</strong> representa la imaginación, la fuerza creativa y la protección de los mundos construidos por el estudio. Su forma integra la «C» de Conari.</span>
@@ -206,7 +222,7 @@
           </ul>
         </article>
 
-        <figure class="emblem-wrap">
+        <figure class="emblem-wrap mo-reveal mo-flota">
           <img src="assets/emblem-dragon.png" alt="Emblema de Studios Conari con dragón, árbol, castillo, montañas, sol y luna" width="1100" height="1100" loading="lazy" decoding="async">
         </figure>
       </div>
@@ -214,14 +230,14 @@
 
     <section id="contacto" class="section-full contact-section">
       <div class="shell contact-grid">
-        <div class="contact-copy">
+        <div class="contact-copy mo-reveal">
           <p class="eyebrow">Contacto</p>
           <h2>Conversemos sobre mundos, proyectos y colaboraciones</h2>
           <p>Estamos en etapa de consolidación de estudio y apertura de redes. Si deseas conocer más sobre nuestro trabajo, escribirnos o seguir el desarrollo de nuestras futuras obras, puedes hacerlo por estos canales.</p>
         </div>
 
-        <div class="contact-list">
-          <a class="glass-panel contact-card contact-card--icon" href="mailto:studiosconari@gmail.com">
+        <div class="contact-list mo-tilt-wrap">
+          <a class="glass-panel contact-card contact-card--icon mo-reveal mo-tilt mo-brillo" href="mailto:studiosconari@gmail.com">
             <span class="contact-icon" aria-hidden="true">
               <img src="assets/logo-correo.png" alt="" width="192" height="192" loading="lazy" decoding="async">
             </span>
@@ -231,7 +247,7 @@
             </span>
           </a>
 
-          <a class="glass-panel contact-card contact-card--icon" href="https://github.com/StudiosConari" target="_blank" rel="noreferrer noopener">
+          <a class="glass-panel contact-card contact-card--icon mo-reveal mo-tilt mo-brillo" href="https://github.com/StudiosConari" target="_blank" rel="noreferrer noopener">
             <span class="contact-icon" aria-hidden="true">
               <img src="assets/logo-github.png" alt="" width="192" height="192" loading="lazy" decoding="async">
             </span>
@@ -241,7 +257,7 @@
             </span>
           </a>
 
-          <a class="glass-panel contact-card contact-card--icon" href="https://www.instagram.com/studiosconari/" target="_blank" rel="noreferrer noopener">
+          <a class="glass-panel contact-card contact-card--icon mo-reveal mo-tilt mo-brillo" href="https://www.instagram.com/studiosconari/" target="_blank" rel="noreferrer noopener">
             <span class="contact-icon" aria-hidden="true">
               <img src="assets/logo-instagram.png" alt="" width="192" height="192" loading="lazy" decoding="async">
             </span>
