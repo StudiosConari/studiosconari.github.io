@@ -312,6 +312,10 @@ html[data-theme="day"] .site-footer{background:rgba(245,248,252,.72)}
 .footer-row a:hover{color:var(--gold)}
 
 @media (max-width: 1080px){
+  /* Encuadre: al angostarse la pantalla, cover recorta por los lados y los
+     personajes (66%-90% del ancho) quedaban fuera. Se desplaza el punto de
+     anclaje para mantenerlos en cuadro. */
+  body::before{background-position:78% top}
   .intro-grid,
   .brand-grid,
   .contact-grid{grid-template-columns:1fr}
@@ -332,6 +336,9 @@ html[data-theme="day"] .site-footer{background:rgba(245,248,252,.72)}
 }
 
 @media (max-width: 640px){
+  /* En telefono solo cabe el 26% del ancho: se encuadra al caballero, que
+     queda en el tercio derecho, con menos texto encima. */
+  body::before{background-position:72% top}
   .hero h1{font-size:clamp(2.8rem,15vw,4.3rem)}
   .study-heading h2,.section-heading h2,.contact-copy h2{font-size:2.45rem}
   .actions{flex-direction:column;align-items:flex-start}
