@@ -46,47 +46,6 @@
   line-height:1.65;
 }
 
-/* Cifras del estudio */
-.tm-stats{
-  display:flex;
-  flex-wrap:wrap;
-  gap:14px 54px;
-  margin-top:46px;
-  padding-top:30px;
-  border-top:1px solid var(--line);
-}
-.tm-stat b{
-  display:block;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(2.1rem,3.4vw,3rem);
-  line-height:1;
-  color:var(--gold);
-  font-variant-numeric:tabular-nums;
-}
-.tm-stat span{
-  display:block;
-  margin-top:8px;
-  font-size:.74rem;
-  font-weight:800;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  color:var(--muted);
-}
-
-
-/* Indicacion breve sobre el selector, dentro del propio hero */
-.tm-pista{
-  margin:30px 0 18px;
-  font-size:.76rem;
-  font-weight:800;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  color:var(--gold);
-}
-
-/* El detalle ya no necesita el respiro de una seccion completa arriba */
-.tm-section--detalle{padding-top:clamp(28px,3.4vw,48px)}
-.tm-section--detalle .tm-stage{margin-top:0}
 /* --- Secciones ----------------------------------------------------------- */
 .tm-section{padding:clamp(72px,9vw,124px) 0}
 .tm-section-head{max-width:70ch;margin:0 0 clamp(36px,4.6vw,60px)}
@@ -450,32 +409,6 @@
 }
 .tm-slot svg{width:30px;height:30px;stroke:var(--gold);fill:none;stroke-width:1.4;opacity:.75}
 
-/* --- Capacidades del estudio --------------------------------------------- */
-.tm-caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:clamp(16px,2vw,24px)}
-.tm-cap{
-  padding:clamp(26px,2.6vw,36px);
-  border:1px solid var(--line);
-  border-radius:20px;
-  background:var(--panel);
-  -webkit-backdrop-filter:blur(14px);
-  backdrop-filter:blur(14px);
-  transition:transform .5s cubic-bezier(.22,.61,.36,1),border-color .4s ease;
-}
-/* Flotan muy despacio y desfasadas entre si, para que la fila no quede quieta */
-.tm-cap.is-in{animation:tm-flotar 7s ease-in-out infinite}
-.tm-cap.is-in:nth-child(2){animation-delay:-1.75s}
-.tm-cap.is-in:nth-child(3){animation-delay:-3.5s}
-.tm-cap.is-in:nth-child(4){animation-delay:-5.25s}
-@keyframes tm-flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-.tm-cap:hover{animation-play-state:paused;transform:translateY(-10px);border-color:var(--line-strong)}
-/* Al pasar el cursor el icono se vuelve a dibujar */
-.tm-cap:hover .tm-cap-icon > *{animation:mo-draw 1.1s cubic-bezier(.22,.61,.36,1) forwards}
-.tm-cap h3{margin:20px 0 10px;font-family:Georgia,"Times New Roman",serif;font-size:1.4rem}
-.tm-cap p{margin:0;color:var(--muted);line-height:1.65;font-size:.98rem}
-.tm-cap-icon{width:52px;height:52px;stroke:var(--gold);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
-.tm-cap-icon > *{stroke-dasharray:200;stroke-dashoffset:200}
-.tm-cap.is-in .tm-cap-icon > *{animation:mo-draw 1.4s cubic-bezier(.22,.61,.36,1) forwards}
-
 /* --- Cierre --------------------------------------------------------------- */
 .tm-cta{text-align:center;padding:clamp(60px,8vw,110px) 0}
 .tm-cta h2{
@@ -503,7 +436,6 @@
 }
 @media (max-width:860px){
   .tm-hero-content{padding:112px 0 64px}
-  .tm-stats{gap:14px 34px}
 }
 @media (max-width:640px){
   .tm-picker{grid-template-columns:1fr;gap:12px}
@@ -528,10 +460,6 @@
   .tm-mono-dash,.tm-mono-orbita{opacity:0}
   .tm-mono-text{transition:none}
   .tm-card:hover .tm-mono-text{transform:none}
-  .tm-cap-icon > *{stroke-dashoffset:0}
-  .tm-cap.is-in .tm-cap-icon > *,
-  .tm-cap:hover .tm-cap-icon > *{animation:none}
-  .tm-cap.is-in{animation:none}
   .tm-panel.is-active .tm-block,
   .tm-panel.is-active .tm-timeline li,
   .tm-panel.is-active .tm-tags li{animation:none}
@@ -540,9 +468,9 @@
   .tm-panel.is-active .tm-timeline::before{animation:none;transform:scaleY(1)}
 
   .tm-work figure::after{display:none}
-  .tm-card,.tm-cap,.tm-tags li{transition:none}
+  .tm-card,.tm-tags li{transition:none}
   .tm-card{transform:none}
-  .tm-card:hover,.tm-cap:hover,.tm-card[aria-selected="true"]{transform:none}
+  .tm-card:hover,.tm-card[aria-selected="true"]{transform:none}
   .tm-card::after{display:none}
 
 }
