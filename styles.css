@@ -92,32 +92,55 @@ html[data-theme="day"] .site-header{
 .nav a{opacity:.96}
 .nav a:hover{color:var(--gold)}
 
+/* Interruptor de tema. El deslizante y los iconos se colocan por coordenada y
+   no con reparto flexible: antes sus posiciones dependian del espacio sobrante
+   y no coincidian, de modo que el sol asomaba por el borde del deslizante.
+   Caja de 82x40 con borde de 1px, asi que el area util mide 80x38.
+   El deslizante mide 28 y se separa 6 de cada extremo: sus centros caen
+   exactamente en 20 y en 60, que es donde van los dos iconos. */
 .theme-toggle{
+  position:relative;
   flex:0 0 auto;
   width:82px;
   height:40px;
-  padding:0 8px;
+  padding:0;
   border:1px solid var(--line-strong);
   border-radius:999px;
   background:rgba(10,20,40,.42);
   color:var(--text);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
   cursor:pointer;
 }
 html[data-theme="day"] .theme-toggle{background:rgba(255,255,255,.48)}
-.theme-toggle span{font-size:14px;line-height:1}
+
+.theme-toggle span{
+  position:absolute;
+  top:50%;
+  transform:translate(-50%,-50%);
+  font-size:14px;
+  line-height:1;
+  transition:opacity .25s ease;
+}
+.theme-toggle span:first-of-type{left:20px}   /* sol */
+.theme-toggle span:last-of-type{left:60px}    /* luna */
+
 .theme-toggle i{
+  position:absolute;
+  top:50%;
+  left:46px;                                   /* modo nocturno: a la derecha */
   width:28px;
   height:28px;
+  margin-top:-14px;
   border-radius:50%;
   background:#fff;
   box-shadow:0 4px 14px rgba(0,0,0,.25);
-  transform:translateX(18px);
-  transition:transform .25s ease;
+  transition:left .25s ease;
 }
-html[data-theme="day"] .theme-toggle i{transform:translateX(-18px)}
+html[data-theme="day"] .theme-toggle i{left:6px}
+
+/* Se apaga el icono que queda bajo el deslizante: asi queda visible solo el
+   del modo al que se cambia, y ninguno puede asomar por el borde. */
+html[data-theme="night"] .theme-toggle span:last-of-type{opacity:0}
+html[data-theme="day"] .theme-toggle span:first-of-type{opacity:0}
 
 .section-full{position:relative;padding:96px 0}
 .hero{
