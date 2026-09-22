@@ -250,15 +250,24 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       // densidad proporcional al area, con tope para pantallas grandes
       const cuantas = Math.min(110, Math.max(28, Math.round((ancho * alto) / 9000)));
-      motas = Array.from({ length: cuantas }, () => ({
-        x: Math.random() * ancho,
-        y: Math.random() * alto,
-        r: Math.random() * 1.9 + 0.6,
-        vy: -(Math.random() * 0.26 + 0.07),
-        vx: (Math.random() - 0.5) * 0.14,
-        a: Math.random() * 0.5 + 0.22,
-        f: Math.random() * Math.PI * 2,      // fase del parpadeo
-      }));
+      motas = Array.from({ length: cuantas }, () => {
+        // z = profundidad. 0 es el fondo (pequeña, tenue, lenta) y 1 el frente.
+        // Las tres bandas dan sensacion de volumen sin necesidad de mas capas.
+        const z = Math.random();
+        return {
+          x: Math.random() * ancho,
+          y: Math.random() * alto,
+          z,
+          r: 0.5 + z * 2.1,
+          vy: -(0.05 + z * 0.30),
+          vx: (Math.random() - 0.5) * (0.05 + z * 0.16),
+          a: 0.14 + z * 0.46,
+          f: Math.random() * Math.PI * 2,      // fase del parpadeo
+          vf: 0.9 + Math.random() * 1.1,       // velocidad del parpadeo
+        };
+      });
+      // las del frente se dibujan al final, para que queden por encima
+      motas.sort((m, n) => m.z - n.z);
     };
 
     const pintarMotas = () => {
@@ -266,11 +275,12 @@
       const t = performance.now() / 1000;
       for (const m of motas) {
         m.y += m.vy;
-        m.x += m.vx;
-        if (m.y < -6) { m.y = alto + 6; m.x = Math.random() * ancho; }
-        if (m.x < -6) m.x = ancho + 6;
-        if (m.x > ancho + 6) m.x = -6;
-        const brillo = m.a * (0.6 + 0.4 * Math.sin(t * 1.4 + m.f));
+        // deriva lateral suave, para que no suban en linea recta
+        m.x += m.vx + Math.sin(t * 0.5 + m.f) * 0.08 * m.z;
+        if (m.y < -8) { m.y = alto + 8; m.x = Math.random() * ancho; }
+        if (m.x < -8) m.x = ancho + 8;
+        if (m.x > ancho + 8) m.x = -8;
+        const brillo = m.a * (0.6 + 0.4 * Math.sin(t * m.vf + m.f));
         // halo tenue alrededor de cada mota, para que no se vean como puntos planos
         const halo = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r * 3.2);
         halo.addColorStop(0, 'rgba(232,196,110,' + brillo.toFixed(3) + ')');

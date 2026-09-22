@@ -108,15 +108,6 @@
     radial-gradient(46% 40% at 78% 64%, rgba(90,130,220,.18) 0%, transparent 60%);
   filter:blur(6px);
 }
-.tm-hero-grid{
-  background-image:
-    linear-gradient(to right, var(--line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-  background-size:96px 96px;
-  -webkit-mask-image:radial-gradient(70% 58% at 50% 42%, #000 0%, transparent 78%);
-  mask-image:radial-gradient(70% 58% at 50% 42%, #000 0%, transparent 78%);
-  opacity:.5;
-}
 .tm-hero-content{position:relative;z-index:1;padding:132px 0 76px}
 .tm-hero h1{
   margin:0 0 20px;
