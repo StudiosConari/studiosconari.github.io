@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="es" data-theme="night" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Equipo | Studios Conari</title>
+  <meta name="description" content="Quienes forman Studios Conari: perfiles, trayectoria y portafolio del equipo detras de nuestros videojuegos, universos narrativos e identidades visuales.">
+  <link rel="canonical" href="https://studiosconari.github.io/equipo.html">
+  <link rel="icon" href="assets/favicon.png" type="image/png" sizes="512x512">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <!-- Open Graph / redes sociales -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Studios Conari">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:url" content="https://studiosconari.github.io/equipo.html">
+  <meta property="og:title" content="Equipo | Studios Conari">
+  <meta property="og:description" content="Quienes forman Studios Conari: perfiles, trayectoria y portafolio del equipo.">
+  <meta property="og:image" content="https://studiosconari.github.io/assets/background-night.jpg">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="900">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Equipo | Studios Conari">
+  <meta name="twitter:description" content="Quienes forman Studios Conari: perfiles, trayectoria y portafolio del equipo.">
+  <meta name="twitter:image" content="https://studiosconari.github.io/assets/background-night.jpg">
+
+  <!-- Aplica el tema guardado antes del primer pintado, para evitar el parpadeo.
+       Debe ir aqui, sincrono y antes de la hoja de estilos. -->
+  <script>
+    (function () {
+      document.documentElement.classList.remove('no-js');
+      try {
+        var t = localStorage.getItem('conari-theme');
+        if (t === 'day' || t === 'night') document.documentElement.dataset.theme = t;
+      } catch (e) { /* localStorage bloqueado: se queda con el tema por defecto */ }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="equipo.css">
+  <script src="script.js" defer></script>
+  <script src="equipo.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell nav-row">
+      <a class="brand" href="index.html#inicio" aria-label="Studios Conari, inicio">
+        <img id="brandLogo" src="assets/header-wordmark-night-transparent.png" alt="Studios Conari" width="620" height="362" fetchpriority="high" decoding="async">
+        <script>
+          // Corrige el logo antes de pintarlo si el tema guardado es el diurno.
+          (function () {
+            var l = document.getElementById('brandLogo');
+            if (l && document.documentElement.dataset.theme === 'day') {
+              l.src = 'assets/header-wordmark-transparent.png';
+            }
+          })();
+        </script>
+      </a>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="index.html#estudio">El estudio</a>
+        <a href="index.html#esencia">Esencia</a>
+        <a href="index.html#trayectoria">Trayectoria</a>
+        <a href="equipo.html" aria-current="page">Equipo</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar modo visual" aria-pressed="true">
+        <span>☀</span><i></i><span>☾</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="tm-hero" aria-label="Presentación del equipo">
+      <div class="tm-hero-layer tm-hero-glow" data-tm-speed="0.18" aria-hidden="true"></div>
+      <div class="tm-hero-layer tm-hero-grid" data-tm-speed="0.34" aria-hidden="true"></div>
+
+      <div class="shell tm-hero-content">
+        <p class="eyebrow tm-reveal">Quiénes somos</p>
+        <h1 class="tm-reveal" data-tm-delay="1">Tres oficios,<br>una misma <em>dirección</em>.</h1>
+        <p class="tm-lead tm-reveal" data-tm-delay="2">
+          Studios Conari es un estudio creativo chileno donde convergen el arte, la tecnología
+          y la investigación cultural. Detrás de cada proyecto hay un equipo que diseña,
+          programa, ilustra y modela: estas son las personas que lo hacen posible.
+        </p>
+
+        <div class="tm-stats tm-reveal" data-tm-delay="3">
+          <div class="tm-stat">
+            <b data-tm-count="3">3</b>
+            <span>Integrantes</span>
+          </div>
+          <div class="tm-stat">
+            <b data-tm-count="3">3</b>
+            <span>Proyectos</span>
+          </div>
+          <div class="tm-stat">
+            <b data-tm-count="4">4</b>
+            <span>Disciplinas</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SELECTOR DE INTEGRANTES ================= -->
+    <section class="tm-section" id="integrantes" aria-labelledby="tm-titulo-equipo">
+      <div class="shell">
+        <div class="tm-section-head tm-reveal">
+          <p class="eyebrow">El equipo</p>
+          <h2 id="tm-titulo-equipo">Elige un integrante para conocer su trabajo</h2>
+          <p>Cada perfil reúne su rol dentro del estudio, su trayectoria, las herramientas
+             con las que trabaja y una selección de piezas realizadas.</p>
+        </div>
+
+        <!-- Las tarjetas funcionan como pestañas: se navega con clic o con las flechas -->
+        <div class="tm-picker tm-reveal" data-tm-delay="1" role="tablist" aria-label="Integrantes de Studios Conari">
+
+          <button class="tm-card" type="button" role="tab" data-tm-for="maria-ines"
+                  aria-selected="true" aria-controls="maria-ines" id="tab-maria-ines">
+            <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
+              <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
+              <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
+              <text class="tm-mono-text" x="60" y="61">MC</text>
+            </svg>
+            <span class="tm-card-text">
+              <span class="tm-card-name">María Inés Cisterna Escobar</span>
+              <span class="tm-card-role tm-todo">Rol por definir</span>
+            </span>
+          </button>
+
+          <button class="tm-card" type="button" role="tab" data-tm-for="kevin"
+                  aria-selected="false" aria-controls="kevin" id="tab-kevin">
+            <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
+              <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
+              <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
+              <text class="tm-mono-text" x="60" y="61">KR</text>
+            </svg>
+            <span class="tm-card-text">
+              <span class="tm-card-name">Kevin Alexis del Río Morgado</span>
+              <span class="tm-card-role tm-todo">Rol por definir</span>
+            </span>
+          </button>
+
+          <button class="tm-card" type="button" role="tab" data-tm-for="elias"
+                  aria-selected="false" aria-controls="elias" id="tab-elias">
+            <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
+              <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
+              <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
+              <text class="tm-mono-text" x="60" y="61">EM</text>
+            </svg>
+            <span class="tm-card-text">
+              <span class="tm-card-name">Elías Alejandro Medel Collao</span>
+              <span class="tm-card-role tm-todo">Rol por definir</span>
+            </span>
+          </button>
+
+        </div>
+
+        <!-- ================= PANELES DE DETALLE ================= -->
+        <div class="tm-stage">
+
+          <!-- ---------- María Inés Cisterna Escobar ---------- -->
+          <section class="tm-panel is-active" id="maria-ines" role="tabpanel" aria-labelledby="tab-maria-ines" tabindex="0">
+            <div class="tm-panel-inner">
+              <div class="tm-panel-grid">
+
+                <div>
+                  <article class="tm-block">
+                    <h3>María Inés Cisterna Escobar</h3>
+                    <p class="tm-panel-role tm-todo">Rol dentro del estudio por definir</p>
+                    <p class="tm-bio tm-todo">
+                      Biografía por completar. Aquí van dos o tres párrafos sobre su formación,
+                      su recorrido profesional y qué aporta al estudio.
+                    </p>
+                    <p class="tm-bio tm-todo">
+                      Segundo párrafo por completar: enfoque de trabajo, intereses y el tipo de
+                      proyectos en los que se desenvuelve mejor.
+                    </p>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Portafolio</h4>
+                    <div class="tm-work">
+                      <figure>
+                        <img src="assets/banner-origen.png" alt="Banner de Proyecto Origen" width="1024" height="358" loading="lazy" decoding="async">
+                        <figcaption><b>Proyecto Origen</b>Prototipo RPG 2D en Godot Engine. <span class="tm-todo">Participación por detallar</span></figcaption>
+                      </figure>
+                      <div class="tm-slot">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 15l5-5 4 4 3-3 6 6"/></svg>
+                        <span class="tm-todo">Pieza de diseño por entregar</span>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+
+                <div>
+                  <article class="tm-block">
+                    <h4>Especialidades</h4>
+                    <ul class="tm-skills">
+                      <li>
+                        <div class="tm-skill-top">
+                          <span class="tm-skill-name tm-todo">Especialidad por definir</span>
+                          <span class="tm-skill-lvl">Avanzado</span>
+                        </div>
+                        <div class="tm-meter"><i style="--tm-lvl:85%"></i></div>
+                      </li>
+                      <li>
+                        <div class="tm-skill-top">
+                          <span class="tm-skill-name tm-todo">Especialidad por definir</span>
+                          <span class="tm-skill-lvl">Avanzado</span>
+                        </div>
+                        <div class="tm-meter"><i style="--tm-lvl:75%"></i></div>
+                      </li>
+                      <li>
+                        <div class="tm-skill-top">
+                          <span class="tm-skill-name tm-todo">Especialidad por definir</span>
+                          <span class="tm-skill-lvl">Intermedio</span>
+                        </div>
+                        <div class="tm-meter"><i style="--tm-lvl:60%"></i></div>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Trayectoria</h4>
+                    <ul class="tm-timeline">
+                      <li>
+                        <em class="tm-todo">Año</em>
+                        <b class="tm-todo">Hito o formación por completar</b>
+                        <span class="tm-todo">Descripción breve de esta etapa.</span>
+                      </li>
+                      <li>
+                        <em class="tm-todo">Año</em>
+                        <b class="tm-todo">Hito o formación por completar</b>
+                        <span class="tm-todo">Descripción breve de esta etapa.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Herramientas</h4>
+                    <ul class="tm-tags">
+                      <li class="tm-todo">Por definir</li>
+                      <li class="tm-todo">Por definir</li>
+                      <li class="tm-todo">Por definir</li>
+                    </ul>
+                  </article>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- ---------- Kevin Alexis del Río Morgado ---------- -->
+          <section class="tm-panel" id="kevin" role="tabpanel" aria-labelledby="tab-kevin" tabindex="0" hidden>
+            <div class="tm-panel-inner">
+              <div class="tm-panel-grid">
+
+                <div>
+                  <article class="tm-block">
+                    <h3>Kevin Alexis del Río Morgado</h3>
+                    <p class="tm-panel-role tm-todo">Rol dentro del estudio por definir</p>
+                    <p class="tm-bio tm-todo">
+                      Biografía por completar. Aquí van dos o tres párrafos sobre su formación,
+                      su recorrido profesional y qué aporta al estudio.
+                    </p>
+                    <p class="tm-bio tm-todo">
+                      Segundo párrafo por completar: enfoque de trabajo, intereses y el tipo de
+                      proyectos en los que se desenvuelve mejor.
+                    </p>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Portafolio</h4>
+                    <div class="tm-work">
+                      <figure>
+                        <img src="assets/banner-resonancia.png" alt="Banner de Proyecto Resonancia" width="1024" height="384" loading="lazy" decoding="async">
+                        <figcaption><b>Proyecto Resonancia</b>Videojuego de ritmo arcade. <span class="tm-todo">Participación por detallar</span></figcaption>
+                      </figure>
+                      <figure>
+                        <img src="assets/banner-vilu.png" alt="Banner de VILU" width="1024" height="358" loading="lazy" decoding="async">
+                        <figcaption><b>VILU</b>Proyecto original en desarrollo. <span class="tm-todo">Participación por detallar</span></figcaption>
+                      </figure>
+                    </div>
+                  </article>
+                </div>
+
+                <div>
+                  <article class="tm-block">
+                    <h4>Especialidades</h4>
+                    <ul class="tm-skills">
+                      <li>
+                        <div class="tm-skill-top">
+                          <span class="tm-skill-name tm-todo">Especialidad por definir</span>
+                          <span class="tm-skill-lvl">Avanzado</span>
+                        </div>
+                        <div class="tm-meter"><i style="--tm-lvl:88%"></i></div>
+                      </li>
+                      <li>
+                        <div class="tm-skill-top">
+                          <span class="tm-skill-name tm-todo">Especialidad por definir</span>
+                          <span class="tm-skill-lvl">Avanzado</span>
+                        </div>
+                        <div class="tm-meter"><i style="--tm-lvl:78%"></i></div>
+                      </li>
+                      <li>
+                        <div class="tm-skill-top">
+                          <span class="tm-skill-name tm-todo">Especialidad por definir</span>
+                          <span class="tm-skill-lvl">Intermedio</span>
+                        </div>
+                        <div class="tm-meter"><i style="--tm-lvl:62%"></i></div>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Trayectoria</h4>
+                    <ul class="tm-timeline">
+                      <li>
+                        <em class="tm-todo">Año</em>
+                        <b class="tm-todo">Hito o formación por completar</b>
+                        <span class="tm-todo">Descripción breve de esta etapa.</span>
+                      </li>
+                      <li>
+                        <em class="tm-todo">Año</em>
+                        <b class="tm-todo">Hito o formación por completar</b>
+                        <span class="tm-todo">Descripción breve de esta etapa.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Herramientas</h4>
+                    <ul class="tm-tags">
+                      <li class="tm-todo">Por definir</li>
+                      <li class="tm-todo">Por definir</li>
+                      <li class="tm-todo">Por definir</li>
+                    </ul>
+                  </article>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- ---------- Elías Alejandro Medel Collao ---------- -->
+          <section class="tm-panel" id="elias" role="tabpanel" aria-labelledby="tab-elias" tabindex="0" hidden>
+            <div class="tm-panel-inner">
+              <div class="tm-panel-grid">
+
+                <div>
+                  <article class="tm-block">
+                    <h3>Elías Alejandro Medel Collao</h3>
+                    <p class="tm-panel-role tm-todo">Rol dentro del estudio por definir</p>
+                    <p class="tm-bio tm-todo">
+                      Biografía por completar. Aquí van dos o tres párrafos sobre su formación,
+                      su recorrido profesional y qué aporta al estudio.
+                    </p>
+                    <p class="tm-bio tm-todo">
+                      Segundo párrafo por completar: enfoque de trabajo, intereses y el tipo de
+                      proyectos en los que se desenvuelve mejor.
+                    </p>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Portafolio</h4>
+                    <div class="tm-work">
+                      <figure>
+                        <img src="assets/banner-vilu.png" alt="Banner de VILU" width="1024" height="358" loading="lazy" decoding="async">
+                        <figcaption><b>VILU</b>Proyecto original en desarrollo. <span class="tm-todo">Participación por detallar</span></figcaption>
+                      </figure>
+                      <div class="tm-slot">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M12 12l9-5M12 12v10M12 12L3 7"/></svg>
+                        <span class="tm-todo">Render 3D por entregar</span>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+
+                <div>
+                  <article class="tm-block">
+                    <h4>Especialidades</h4>
+                    <ul class="tm-skills">
+                      <li>
+                        <div class="tm-skill-top">
+                          <span class="tm-skill-name tm-todo">Especialidad por definir</span>
+                          <span class="tm-skill-lvl">Avanzado</span>
+                        </div>
+                        <div class="tm-meter"><i style="--tm-lvl:82%"></i></div>
+                      </li>
+                      <li>
+                        <div class="tm-skill-top">
+                          <span class="tm-skill-name tm-todo">Especialidad por definir</span>
+                          <span class="tm-skill-lvl">Avanzado</span>
+                        </div>
+                        <div class="tm-meter"><i style="--tm-lvl:72%"></i></div>
+                      </li>
+                      <li>
+                        <div class="tm-skill-top">
+                          <span class="tm-skill-name tm-todo">Especialidad por definir</span>
+                          <span class="tm-skill-lvl">Intermedio</span>
+                        </div>
+                        <div class="tm-meter"><i style="--tm-lvl:58%"></i></div>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Trayectoria</h4>
+                    <ul class="tm-timeline">
+                      <li>
+                        <em class="tm-todo">Año</em>
+                        <b class="tm-todo">Hito o formación por completar</b>
+                        <span class="tm-todo">Descripción breve de esta etapa.</span>
+                      </li>
+                      <li>
+                        <em class="tm-todo">Año</em>
+                        <b class="tm-todo">Hito o formación por completar</b>
+                        <span class="tm-todo">Descripción breve de esta etapa.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Herramientas</h4>
+                    <ul class="tm-tags">
+                      <li class="tm-todo">Por definir</li>
+                      <li class="tm-todo">Por definir</li>
+                      <li class="tm-todo">Por definir</li>
+                    </ul>
+                  </article>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CAPACIDADES ================= -->
+    <section class="tm-section" id="capacidades" aria-labelledby="tm-titulo-capacidades">
+      <div class="shell">
+        <div class="tm-section-head tm-reveal">
+          <p class="eyebrow">Qué hacemos</p>
+          <h2 id="tm-titulo-capacidades">Cuatro disciplinas bajo una misma dirección creativa</h2>
+          <p>El estudio cubre el recorrido completo de un proyecto: desde la identidad visual
+             y la puesta en línea hasta el desarrollo del juego y sus activos tridimensionales.</p>
+        </div>
+
+        <div class="tm-caps">
+          <article class="tm-cap">
+            <svg class="tm-cap-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+              <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+              <path d="M2 2l7.586 7.586"/>
+              <circle cx="11" cy="11" r="2"/>
+            </svg>
+            <h3>Diseño</h3>
+            <p>Identidad visual, dirección de arte, ilustración y piezas gráficas
+               con un lenguaje propio y coherente.</p>
+          </article>
+
+          <article class="tm-cap">
+            <svg class="tm-cap-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M2 9h20"/>
+              <path d="M5.5 6.5h.01M8 6.5h.01M10.5 6.5h.01"/>
+              <path d="M9 13l-2 2 2 2M15 13l2 2-2 2"/>
+            </svg>
+            <h3>Desarrollo web</h3>
+            <p>Sitios y landing pages a medida, con rendimiento cuidado,
+               accesibilidad y adaptación a cualquier pantalla.</p>
+          </article>
+
+          <article class="tm-cap">
+            <svg class="tm-cap-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2" y="7" width="20" height="11" rx="5.5"/>
+              <path d="M7 11v3M5.5 12.5h3"/>
+              <circle cx="16" cy="11.8" r="1"/>
+              <circle cx="18.4" cy="14" r="1"/>
+            </svg>
+            <h3>Videojuegos</h3>
+            <p>Diseño de sistemas y mecánicas, prototipado y desarrollo
+               con Godot Engine, desde la idea hasta el juego jugable.</p>
+          </article>
+
+          <article class="tm-cap">
+            <svg class="tm-cap-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2l9 5v10l-9 5-9-5V7z"/>
+              <path d="M12 12l9-5"/>
+              <path d="M12 12v10"/>
+              <path d="M12 12L3 7"/>
+            </svg>
+            <h3>Modelado 3D</h3>
+            <p>Modelos, texturizado y recursos tridimensionales listos
+               para motor o para pieza de presentación.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CIERRE ================= -->
+    <section class="tm-cta">
+      <div class="shell tm-reveal">
+        <h2>¿Tienes un proyecto en mente?</h2>
+        <p>Trabajamos con estudios, marcas y proyectos culturales que buscan
+           una voz visual y narrativa propia. Conversemos.</p>
+        <div class="actions">
+          <a class="btn primary" href="index.html#contacto">Contactar al estudio →</a>
+          <a class="btn ghost" href="index.html#trayectoria">Ver trayectoria</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-row">
+      <p>© <span id="year">2026</span> Studios Conari. Todos los derechos reservados.</p>
+      <a href="index.html#inicio">Volver al inicio ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

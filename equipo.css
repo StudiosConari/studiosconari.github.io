@@ -1,0 +1,426 @@
+/* ===========================================================================
+   Studios Conari - Pagina de equipo
+   Hereda los tokens de color, .shell, .glass-panel, .eyebrow y .btn de
+   styles.css. Todo lo propio de esta pagina va con prefijo tm- (team) para
+   no colisionar con el landing.
+   =========================================================================== */
+
+/* --- Capa de movimiento -------------------------------------------------- */
+/* Estado inicial de cualquier elemento que entra con el scroll. equipo.js le
+   agrega .is-in cuando cruza el viewport. */
+.tm-reveal{
+  opacity:0;
+  transform:translate3d(0,28px,0);
+  transition:opacity .7s cubic-bezier(.22,.61,.36,1),
+             transform .7s cubic-bezier(.22,.61,.36,1);
+  will-change:opacity,transform;
+}
+.tm-reveal.is-in{opacity:1;transform:none}
+.tm-reveal[data-tm-delay="1"]{transition-delay:.09s}
+.tm-reveal[data-tm-delay="2"]{transition-delay:.18s}
+.tm-reveal[data-tm-delay="3"]{transition-delay:.27s}
+.tm-reveal[data-tm-delay="4"]{transition-delay:.36s}
+.tm-reveal[data-tm-delay="5"]{transition-delay:.45s}
+
+/* Si no hay JS, nada debe quedar invisible */
+.no-js .tm-reveal{opacity:1;transform:none}
+
+/* --- Hero con parallax por capas ----------------------------------------- */
+.tm-hero{
+  position:relative;
+  min-height:clamp(560px,86vh,860px);
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  isolation:isolate;
+}
+/* Cada capa se desplaza a distinta velocidad; equipo.js escribe --tm-shift */
+.tm-hero-layer{
+  position:absolute;
+  inset:-10% -5%;
+  z-index:-1;
+  pointer-events:none;
+  transform:translate3d(0,calc(var(--tm-shift,0) * 1px),0);
+}
+.tm-hero-glow{
+  background:
+    radial-gradient(52% 44% at 22% 30%, rgba(224,183,86,.16) 0%, transparent 62%),
+    radial-gradient(46% 40% at 78% 64%, rgba(90,130,220,.18) 0%, transparent 60%);
+  filter:blur(6px);
+}
+.tm-hero-grid{
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size:96px 96px;
+  -webkit-mask-image:radial-gradient(70% 58% at 50% 42%, #000 0%, transparent 78%);
+  mask-image:radial-gradient(70% 58% at 50% 42%, #000 0%, transparent 78%);
+  opacity:.5;
+}
+.tm-hero-content{position:relative;z-index:1;padding:132px 0 76px}
+.tm-hero h1{
+  margin:0 0 20px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:700;
+  line-height:.96;
+  letter-spacing:-.015em;
+  font-size:clamp(3rem,7.4vw,5.9rem);
+}
+.tm-hero h1 em{font-style:normal;color:var(--gold)}
+.tm-lead{
+  margin:0;
+  max-width:62ch;
+  color:var(--muted);
+  font-size:clamp(1.02rem,1.35vw,1.28rem);
+  line-height:1.65;
+}
+
+/* Cifras del estudio */
+.tm-stats{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px 54px;
+  margin-top:46px;
+  padding-top:30px;
+  border-top:1px solid var(--line);
+}
+.tm-stat b{
+  display:block;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(2.1rem,3.4vw,3rem);
+  line-height:1;
+  color:var(--gold);
+  font-variant-numeric:tabular-nums;
+}
+.tm-stat span{
+  display:block;
+  margin-top:8px;
+  font-size:.74rem;
+  font-weight:800;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+/* --- Secciones ----------------------------------------------------------- */
+.tm-section{padding:clamp(72px,9vw,124px) 0}
+.tm-section-head{max-width:70ch;margin:0 0 clamp(36px,4.6vw,60px)}
+.tm-section-head h2{
+  margin:0 0 16px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:700;
+  line-height:1.04;
+  font-size:clamp(2.1rem,4.1vw,3.4rem);
+}
+.tm-section-head p{margin:0;color:var(--muted);font-size:1.06rem;line-height:1.7}
+
+/* --- Selector de integrantes --------------------------------------------- */
+.tm-picker{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(14px,1.8vw,26px);
+}
+.tm-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:18px;
+  padding:clamp(24px,2.6vw,38px) 20px clamp(20px,2.2vw,30px);
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--panel);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+  color:inherit;
+  font:inherit;
+  text-align:center;
+  cursor:pointer;
+  overflow:hidden;
+  transition:transform .5s cubic-bezier(.22,.61,.36,1),
+             border-color .4s ease, background .4s ease, box-shadow .5s ease;
+}
+/* Barrido de luz al pasar el cursor */
+.tm-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(115deg,transparent 30%,rgba(224,183,86,.16) 50%,transparent 70%);
+  transform:translateX(-120%);
+  transition:transform .85s cubic-bezier(.22,.61,.36,1);
+  pointer-events:none;
+}
+.tm-card:hover::after,.tm-card:focus-visible::after{transform:translateX(120%)}
+.tm-card:hover,.tm-card:focus-visible{
+  transform:translateY(-8px);
+  border-color:var(--line-strong);
+  box-shadow:var(--shadow);
+}
+.tm-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.tm-card[aria-selected="true"]{
+  border-color:var(--gold);
+  background:var(--panel-strong);
+  transform:translateY(-8px);
+  box-shadow:0 26px 54px rgba(0,0,0,.3);
+}
+/* Marca del integrante activo */
+.tm-card[aria-selected="true"]::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:0;
+  width:64%;
+  height:3px;
+  transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.tm-card-text{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+.tm-card-name{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(1.05rem,1.6vw,1.4rem);
+  line-height:1.24;
+  text-wrap:balance;
+}
+.tm-card-role{
+  font-size:.72rem;
+  font-weight:800;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+
+/* Monograma: circulo que se dibuja + iniciales */
+.tm-mono{width:clamp(88px,9vw,124px);height:clamp(88px,9vw,124px);flex:0 0 auto}
+.tm-mono-ring{
+  fill:none;
+  stroke:var(--gold);
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-dasharray:302;
+  stroke-dashoffset:302;
+  opacity:.75;
+}
+.is-in .tm-mono-ring,
+.tm-card[aria-selected="true"] .tm-mono-ring{
+  animation:tm-draw 1.5s cubic-bezier(.22,.61,.36,1) forwards;
+}
+@keyframes tm-draw{to{stroke-dashoffset:0}}
+.tm-mono-ring--inner{stroke-width:.9;opacity:.4;stroke-dasharray:226;stroke-dashoffset:226;animation-delay:.2s}
+.tm-mono-text{
+  fill:var(--text);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:30px;
+  letter-spacing:.06em;
+  text-anchor:middle;
+  dominant-baseline:central;
+}
+.tm-card[aria-selected="true"] .tm-mono-text{fill:var(--gold)}
+.tm-mono-spark{fill:var(--gold);opacity:.25;transform-origin:center;transform-box:fill-box}
+.tm-card[aria-selected="true"] .tm-mono-spark{animation:tm-spark 2.6s ease-in-out infinite}
+@keyframes tm-spark{0%,100%{opacity:.3;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
+
+/* --- Panel de detalle ----------------------------------------------------- */
+.tm-stage{margin-top:clamp(30px,3.6vw,52px)}
+.tm-panel{display:none}
+.tm-panel.is-active{display:block}
+/* Entrada del panel al cambiar de integrante */
+.tm-panel.is-active .tm-panel-inner{animation:tm-enter .62s cubic-bezier(.22,.61,.36,1) both}
+@keyframes tm-enter{
+  from{opacity:0;transform:translate3d(0,22px,0) scale(.99)}
+  to{opacity:1;transform:none}
+}
+.tm-panel-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  gap:clamp(20px,2.6vw,38px);
+  align-items:start;
+}
+.tm-block{
+  padding:clamp(24px,2.6vw,40px);
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--panel);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+}
+.tm-block + .tm-block{margin-top:clamp(18px,2vw,26px)}
+.tm-block h3{
+  margin:0 0 6px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(1.35rem,2.2vw,1.85rem);
+  line-height:1.15;
+}
+.tm-block h4{
+  margin:0 0 14px;
+  font-size:.74rem;
+  font-weight:800;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.tm-panel-role{
+  margin:0 0 20px;
+  font-size:.76rem;
+  font-weight:800;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.tm-bio{margin:0;color:var(--muted);line-height:1.75;font-size:1.04rem}
+.tm-bio + .tm-bio{margin-top:14px}
+
+/* Especialidades con medidor */
+.tm-skills{list-style:none;margin:0;padding:0;display:grid;gap:18px}
+.tm-skill-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px}
+.tm-skill-name{font-weight:700}
+.tm-skill-lvl{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.tm-meter{height:5px;border-radius:999px;background:var(--line);overflow:hidden}
+.tm-meter i{
+  display:block;
+  height:100%;
+  width:0;
+  border-radius:inherit;
+  background:linear-gradient(90deg,rgba(224,183,86,.55),var(--gold));
+  transition:width 1.15s cubic-bezier(.22,.61,.36,1);
+}
+.tm-panel.is-active .tm-meter i{width:var(--tm-lvl,0%)}
+
+/* Linea de tiempo / formacion */
+.tm-timeline{list-style:none;margin:0;padding:0 0 0 26px;position:relative}
+.tm-timeline::before{
+  content:"";
+  position:absolute;
+  left:5px;top:6px;bottom:6px;
+  width:1px;
+  background:linear-gradient(180deg,var(--gold),transparent);
+}
+.tm-timeline li{position:relative;padding:0 0 22px}
+.tm-timeline li:last-child{padding-bottom:0}
+.tm-timeline li::before{
+  content:"";
+  position:absolute;
+  left:-26px;top:7px;
+  width:11px;height:11px;
+  border-radius:50%;
+  background:var(--bg);
+  border:1.5px solid var(--gold);
+}
+.tm-timeline b{display:block;font-size:1.02rem}
+.tm-timeline span{display:block;margin-top:4px;color:var(--muted);font-size:.95rem;line-height:1.6}
+.tm-timeline em{
+  display:block;margin-bottom:5px;font-style:normal;
+  font-size:.72rem;font-weight:800;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold);
+}
+
+/* Etiquetas de herramientas */
+.tm-tags{display:flex;flex-wrap:wrap;gap:9px;margin:0;padding:0;list-style:none}
+.tm-tags li{
+  padding:7px 14px;
+  border:1px solid var(--line-strong);
+  border-radius:999px;
+  font-size:.82rem;
+  font-weight:700;
+  color:var(--muted);
+}
+
+/* Portafolio del integrante */
+.tm-work{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.tm-work figure{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg-soft)}
+.tm-work img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.22,.61,.36,1)}
+.tm-work figure:hover img{transform:scale(1.06)}
+.tm-work figcaption{padding:12px 14px;font-size:.9rem;color:var(--muted)}
+.tm-work figcaption b{display:block;color:var(--text);font-size:.98rem;margin-bottom:3px}
+
+/* Hueco de pieza aun no entregada */
+.tm-slot{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  aspect-ratio:16/9;
+  border:1px dashed var(--line-strong);
+  border-radius:14px;
+  color:var(--muted);
+  text-align:center;
+  padding:16px;
+  font-size:.88rem;
+}
+.tm-slot svg{width:30px;height:30px;stroke:var(--gold);fill:none;stroke-width:1.4;opacity:.75}
+
+/* --- Capacidades del estudio --------------------------------------------- */
+.tm-caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:clamp(16px,2vw,24px)}
+.tm-cap{
+  padding:clamp(26px,2.6vw,36px);
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--panel);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+  transition:transform .5s cubic-bezier(.22,.61,.36,1),border-color .4s ease;
+}
+.tm-cap:hover{transform:translateY(-6px);border-color:var(--line-strong)}
+.tm-cap h3{margin:20px 0 10px;font-family:Georgia,"Times New Roman",serif;font-size:1.4rem}
+.tm-cap p{margin:0;color:var(--muted);line-height:1.65;font-size:.98rem}
+.tm-cap-icon{width:52px;height:52px;stroke:var(--gold);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.tm-cap-icon > *{stroke-dasharray:200;stroke-dashoffset:200}
+.tm-cap.is-in .tm-cap-icon > *{animation:tm-draw 1.4s cubic-bezier(.22,.61,.36,1) forwards}
+
+/* --- Cierre --------------------------------------------------------------- */
+.tm-cta{text-align:center;padding:clamp(60px,8vw,110px) 0}
+.tm-cta h2{
+  margin:0 0 18px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(2rem,4vw,3.2rem);
+  line-height:1.08;
+}
+.tm-cta p{margin:0 auto 34px;max-width:56ch;color:var(--muted);font-size:1.06rem;line-height:1.7}
+.tm-cta .actions{justify-content:center}
+
+/* --- Marcador de contenido por completar ---------------------------------- */
+/* Visible a proposito: marca cada dato que falta por entregar.
+   Buscar "tm-todo" en el HTML para encontrarlos todos. */
+.tm-todo{
+  border-bottom:1px dashed var(--gold);
+  background:rgba(224,183,86,.07);
+  padding:1px 4px;
+  border-radius:3px;
+}
+
+/* --- Adaptacion a pantallas pequeñas -------------------------------------- */
+@media (max-width:1080px){
+  .tm-panel-grid{grid-template-columns:1fr}
+}
+@media (max-width:860px){
+  .tm-hero-content{padding:112px 0 64px}
+  .tm-stats{gap:14px 34px}
+}
+@media (max-width:640px){
+  .tm-picker{grid-template-columns:1fr;gap:12px}
+  /* En telefono la tarjeta se lee mejor en horizontal */
+  .tm-card{flex-direction:row;text-align:left;gap:16px;padding:16px 18px}
+  .tm-card-text{align-items:flex-start;gap:6px}
+  .tm-mono{width:66px;height:66px}
+  .tm-card[aria-selected="true"]::before{
+    width:3px;height:56%;left:0;bottom:auto;top:22%;transform:none;
+    background:linear-gradient(180deg,transparent,var(--gold),transparent);
+  }
+  .tm-work{grid-template-columns:1fr}
+}
+
+/* --- Respeto por quien pide menos movimiento ------------------------------ */
+@media (prefers-reduced-motion:reduce){
+  .tm-reveal{opacity:1;transform:none;transition:none}
+  .tm-hero-layer{transform:none !important}
+  .tm-mono-ring{stroke-dashoffset:0;animation:none}
+  .tm-card[aria-selected="true"] .tm-mono-spark{animation:none;opacity:1}
+  .tm-cap-icon > *{stroke-dashoffset:0}
+  .tm-cap.is-in .tm-cap-icon > *{animation:none}
+  .tm-panel.is-active .tm-panel-inner{animation:none}
+  .tm-card,.tm-cap,.tm-work img,.tm-meter i{transition:none}
+  .tm-card:hover,.tm-cap:hover,.tm-card[aria-selected="true"]{transform:none}
+  .tm-card::after{display:none}
+}
