@@ -42,6 +42,17 @@
   }
   </script>
 
+  <!-- Aplica el tema guardado antes del primer pintado, para evitar el parpadeo.
+       Debe ir aqui, sincrono y antes de la hoja de estilos. -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('conari-theme');
+        if (t === 'day' || t === 'night') document.documentElement.dataset.theme = t;
+      } catch (e) { /* localStorage bloqueado: se queda con el tema por defecto */ }
+    })();
+  </script>
+
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
@@ -50,6 +61,15 @@
     <div class="shell nav-row">
       <a class="brand" href="#inicio" aria-label="Studios Conari, inicio">
         <img id="brandLogo" src="assets/header-wordmark-night-transparent.png" alt="Studios Conari" width="620" height="362" fetchpriority="high" decoding="async">
+      <script>
+        // Corrige el logo antes de pintarlo si el tema guardado es el diurno.
+        (function () {
+          var l = document.getElementById('brandLogo');
+          if (l && document.documentElement.dataset.theme === 'day') {
+            l.src = 'assets/header-wordmark-transparent.png';
+          }
+        })();
+      </script>
       </a>
 
       <nav class="nav" aria-label="Navegación principal">
