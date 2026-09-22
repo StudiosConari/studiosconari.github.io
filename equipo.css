@@ -370,41 +370,27 @@
 .tm-bio{margin:0;color:var(--muted);line-height:1.75;font-size:1.04rem}
 .tm-bio + .tm-bio{margin-top:14px}
 
-/* Especialidades con medidor */
-.tm-skills{list-style:none;margin:0;padding:0;display:grid;gap:18px}
-.tm-skill-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px}
-.tm-skill-name{font-weight:700}
-.tm-skill-lvl{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.tm-meter{height:5px;border-radius:999px;background:var(--line);overflow:hidden;position:relative}
-.tm-meter i{
-  display:block;
-  height:100%;
-  width:0;
-  border-radius:inherit;
+/* Especialidades: solo el nombre, sin nivel ni medidor. Se enumeran, no se
+   puntuan. Cada una va precedida de un rombo dorado. */
+.tm-skills{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.tm-skills li{
   position:relative;
-  overflow:hidden;
-  background:linear-gradient(90deg,rgba(224,183,86,.55),var(--gold));
+  padding:11px 0 11px 26px;
+  border-bottom:1px solid var(--line);
 }
-/* Animacion y no transicion: al pasar el panel de display:none a visible la
-   transicion no se dispara, porque el estado final ya es el inicial. */
-.tm-panel.is-active .tm-meter i{
-  width:var(--tm-lvl,0%);
-  animation:tm-llenar 1.25s cubic-bezier(.16,.84,.34,1) .25s both;
-}
-@keyframes tm-llenar{from{width:0}to{width:var(--tm-lvl,0%)}}
-/* Destello que recorre la barra una vez que termino de llenarse */
-.tm-meter i::after{
+.tm-skills li:last-child{border-bottom:0}
+.tm-skills li::before{
   content:"";
   position:absolute;
-  inset:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
-  transform:translateX(-100%);
+  left:2px;
+  top:1.15em;
+  width:7px;
+  height:7px;
+  transform:rotate(45deg);
+  background:var(--gold);
+  opacity:.85;
 }
-.tm-panel.is-active .tm-meter i::after{animation:tm-brillo 1.6s ease-in-out 1.1s infinite}
-@keyframes tm-brillo{0%{transform:translateX(-100%)}55%,100%{transform:translateX(220%)}}
-
-/* El porcentaje se escribe con el contador de equipo.js */
-.tm-skill-pct{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:700;margin-left:10px}
+.tm-skill-name{font-weight:700;font-size:1.02rem;line-height:1.45}
 
 /* Linea de tiempo / formacion */
 .tm-timeline{list-style:none;margin:0;padding:0 0 0 26px;position:relative}
@@ -637,12 +623,10 @@
   .tm-panel.is-active .tm-timeline li:first-child::before{animation:none}
   .tm-timeline::before{transform:scaleY(1);transition:none}
   .tm-panel.is-active .tm-timeline::before{animation:none;transform:scaleY(1)}
-  .tm-panel.is-active .tm-meter i{animation:none;width:var(--tm-lvl,0%)}
-  .tm-panel.is-active .tm-meter i::after{animation:none}
   .tm-work img{transform:none;transition:none}
   .tm-work figure:hover img{transform:none}
   .tm-work figure::after{display:none}
-  .tm-card,.tm-cap,.tm-meter i,.tm-tags li{transition:none}
+  .tm-card,.tm-cap,.tm-tags li{transition:none}
   .tm-card{transform:none}
   .tm-card:hover,.tm-cap:hover,.tm-card[aria-selected="true"]{transform:none}
   .tm-card::after{display:none}
