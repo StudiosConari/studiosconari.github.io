@@ -331,10 +331,15 @@
 }
 
 /* Portafolio del integrante */
-.tm-work{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+/* Una pieza por fila: los banners son panoramicos (cerca de 2.9:1) y a dos
+   columnas quedaban tan angostos que su titulo no se alcanzaba a leer. */
+.tm-work{display:grid;grid-template-columns:1fr;gap:18px}
 .tm-work figure{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg-soft)}
-.tm-work img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.22,.61,.36,1)}
-.tm-work figure:hover img{transform:scale(1.06)}
+/* Sin aspect-ratio ni object-fit: cada banner conserva su proporcion y se ve
+   entero. Forzar 16/9 con cover recortaba los lados y cortaba el titulo. */
+.tm-work img{width:100%;height:auto;display:block;transition:transform .7s cubic-bezier(.22,.61,.36,1)}
+.tm-work a{display:block;overflow:hidden}
+.tm-work figure:hover img{transform:scale(1.04)}
 .tm-work figcaption{padding:12px 14px;font-size:.9rem;color:var(--muted)}
 .tm-work figcaption b{display:block;color:var(--text);font-size:.98rem;margin-bottom:3px}
 
@@ -357,7 +362,7 @@
 /* Hueco de pieza aun no entregada */
 .tm-slot{
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-  aspect-ratio:16/9;
+  aspect-ratio:1024/358;          /* misma proporcion que los banners */
   border:1px dashed var(--line-strong);
   border-radius:14px;
   color:var(--muted);
