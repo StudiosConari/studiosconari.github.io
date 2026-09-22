@@ -31,15 +31,26 @@ html[data-theme="day"]{
 }
 
 *{box-sizing:border-box}
+
+/* Fondo en una capa fija del tamaño de la pantalla.
+   No se usa background-attachment:fixed porque iOS Safari lo rompe; y con
+   scroll el area del fondo pasaba a ser todo el documento, lo que ampliaba
+   la imagen mas de 7 veces en movil. */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background-image:var(--page-overlay),var(--bg-image);
+  background-size:cover;
+  background-position:center top;
+}
 html{scroll-behavior:smooth}
 body{
   margin:0;
   color:var(--text);
   background-color:var(--bg);
-  background-image:var(--page-overlay),var(--bg-image);
-  background-size:cover;
-  background-position:center top;
-  background-attachment:fixed;
   font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 }
 
@@ -321,7 +332,6 @@ html[data-theme="day"] .site-footer{background:rgba(245,248,252,.72)}
 }
 
 @media (max-width: 640px){
-  body{background-attachment:scroll}
   .hero h1{font-size:clamp(2.8rem,15vw,4.3rem)}
   .study-heading h2,.section-heading h2,.contact-copy h2{font-size:2.45rem}
   .actions{flex-direction:column;align-items:flex-start}
