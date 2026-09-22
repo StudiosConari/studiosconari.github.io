@@ -25,6 +25,66 @@
 /* Si no hay JS, nada debe quedar invisible */
 .no-js .tm-reveal{opacity:1;transform:none}
 
+/* --- Barra de avance de lectura ------------------------------------------ */
+.tm-progreso{
+  position:fixed;
+  inset:0 0 auto;
+  height:3px;
+  z-index:60;
+  background:transparent;
+  pointer-events:none;
+}
+.tm-progreso i{
+  display:block;
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,rgba(224,183,86,.35),var(--gold));
+  box-shadow:0 0 14px rgba(224,183,86,.55);
+}
+
+/* --- Titulo del hero: cada linea entra tras su mascara -------------------- */
+.tm-titulo{
+  margin:0 0 20px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:700;
+  line-height:.96;
+  letter-spacing:-.015em;
+  font-size:clamp(3rem,7.4vw,5.9rem);
+}
+.tm-linea{display:block;overflow:hidden;padding-bottom:.06em}
+.tm-linea > span{
+  display:block;
+  transform:translate3d(0,110%,0);
+  transition:transform 1s cubic-bezier(.16,.84,.34,1);
+}
+.tm-hero.is-in .tm-linea > span{transform:none}
+.tm-hero.is-in .tm-linea:nth-child(2) > span{transition-delay:.12s}
+.no-js .tm-linea > span{transform:none}
+.tm-titulo em{font-style:normal;color:var(--gold)}
+
+/* --- Particulas y halo del hero ------------------------------------------ */
+.tm-particulas{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  opacity:.75;
+}
+/* Halo suave que sigue al puntero; equipo.js escribe --mx y --my */
+.tm-halo{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .6s ease;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),
+             rgba(224,183,86,.14) 0%, transparent 70%);
+}
+.tm-hero:hover .tm-halo{opacity:1}
+
 /* --- Hero con parallax por capas ----------------------------------------- */
 .tm-hero{
   position:relative;
@@ -119,6 +179,7 @@
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:clamp(14px,1.8vw,26px);
+  perspective:1100px;           /* da profundidad a la inclinacion de las tarjetas */
 }
 .tm-card{
   position:relative;
@@ -137,9 +198,17 @@
   text-align:center;
   cursor:pointer;
   overflow:hidden;
+  transform-style:preserve-3d;
+  /* --tm-rx/--tm-ry los escribe equipo.js al mover el puntero sobre la tarjeta */
+  transform:perspective(1100px)
+            rotateX(var(--tm-rx,0deg))
+            rotateY(var(--tm-ry,0deg))
+            translateY(var(--tm-ty,0));
   transition:transform .5s cubic-bezier(.22,.61,.36,1),
              border-color .4s ease, background .4s ease, box-shadow .5s ease;
 }
+/* Mientras el puntero esta encima la inclinacion debe seguirlo sin retardo */
+.tm-card.is-tilting{transition:border-color .4s ease, background .4s ease, box-shadow .5s ease}
 /* Barrido de luz al pasar el cursor */
 .tm-card::after{
   content:"";
@@ -152,15 +221,15 @@
 }
 .tm-card:hover::after,.tm-card:focus-visible::after{transform:translateX(120%)}
 .tm-card:hover,.tm-card:focus-visible{
-  transform:translateY(-8px);
+  --tm-ty:-8px;
   border-color:var(--line-strong);
   box-shadow:var(--shadow);
 }
 .tm-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .tm-card[aria-selected="true"]{
+  --tm-ty:-8px;
   border-color:var(--gold);
   background:var(--panel-strong);
-  transform:translateY(-8px);
   box-shadow:0 26px 54px rgba(0,0,0,.3);
 }
 /* Marca del integrante activo */
@@ -225,14 +294,49 @@
 .tm-card[aria-selected="true"] .tm-mono-spark{animation:tm-spark 2.6s ease-in-out infinite}
 @keyframes tm-spark{0%,100%{opacity:.3;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
 
+/* Anillo punteado que gira despacio, y un punto que lo orbita.
+   Solo en la tarjeta activa, para que la seleccion se sienta viva. */
+.tm-mono-dash{
+  fill:none;
+  stroke:var(--gold);
+  stroke-width:1;
+  stroke-dasharray:3 10;
+  opacity:0;
+  transform-origin:60px 60px;
+  transition:opacity .5s ease;
+}
+.tm-card[aria-selected="true"] .tm-mono-dash{
+  opacity:.55;
+  animation:tm-girar 26s linear infinite;
+}
+@keyframes tm-girar{to{transform:rotate(360deg)}}
+
+.tm-mono-orbita{transform-origin:60px 60px;opacity:0;transition:opacity .5s ease}
+.tm-mono-orbita circle{fill:var(--gold)}
+.tm-card[aria-selected="true"] .tm-mono-orbita{
+  opacity:1;
+  animation:tm-girar 9s linear infinite;
+}
+
+/* Al pasar el cursor, las iniciales respiran */
+.tm-card:hover .tm-mono-text{transform:scale(1.06)}
+.tm-mono-text{transform-origin:60px 60px;transition:transform .45s cubic-bezier(.22,.61,.36,1),fill .4s ease}
+
 /* --- Panel de detalle ----------------------------------------------------- */
 .tm-stage{margin-top:clamp(30px,3.6vw,52px)}
 .tm-panel{display:none}
 .tm-panel.is-active{display:block}
-/* Entrada del panel al cambiar de integrante */
-.tm-panel.is-active .tm-panel-inner{animation:tm-enter .62s cubic-bezier(.22,.61,.36,1) both}
+/* Entrada del panel al cambiar de integrante: cada bloque entra despues del
+   anterior, en vez de aparecer todo el panel de una vez. */
+.tm-panel.is-active .tm-block{animation:tm-enter .68s cubic-bezier(.16,.84,.34,1) both}
+.tm-panel.is-active .tm-panel-grid > div:first-child .tm-block:nth-child(1){animation-delay:.04s}
+.tm-panel.is-active .tm-panel-grid > div:first-child .tm-block:nth-child(2){animation-delay:.14s}
+.tm-panel.is-active .tm-panel-grid > div:last-child  .tm-block:nth-child(1){animation-delay:.10s}
+.tm-panel.is-active .tm-panel-grid > div:last-child  .tm-block:nth-child(2){animation-delay:.20s}
+.tm-panel.is-active .tm-panel-grid > div:last-child  .tm-block:nth-child(3){animation-delay:.28s}
+.tm-panel.is-active .tm-panel-grid > div:last-child  .tm-block:nth-child(4){animation-delay:.36s}
 @keyframes tm-enter{
-  from{opacity:0;transform:translate3d(0,22px,0) scale(.99)}
+  from{opacity:0;transform:translate3d(0,26px,0) scale(.985)}
   to{opacity:1;transform:none}
 }
 .tm-panel-grid{
@@ -280,28 +384,64 @@
 .tm-skill-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px}
 .tm-skill-name{font-weight:700}
 .tm-skill-lvl{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.tm-meter{height:5px;border-radius:999px;background:var(--line);overflow:hidden}
+.tm-meter{height:5px;border-radius:999px;background:var(--line);overflow:hidden;position:relative}
 .tm-meter i{
   display:block;
   height:100%;
   width:0;
   border-radius:inherit;
+  position:relative;
+  overflow:hidden;
   background:linear-gradient(90deg,rgba(224,183,86,.55),var(--gold));
-  transition:width 1.15s cubic-bezier(.22,.61,.36,1);
 }
-.tm-panel.is-active .tm-meter i{width:var(--tm-lvl,0%)}
+/* Animacion y no transicion: al pasar el panel de display:none a visible la
+   transicion no se dispara, porque el estado final ya es el inicial. */
+.tm-panel.is-active .tm-meter i{
+  width:var(--tm-lvl,0%);
+  animation:tm-llenar 1.25s cubic-bezier(.16,.84,.34,1) .25s both;
+}
+@keyframes tm-llenar{from{width:0}to{width:var(--tm-lvl,0%)}}
+/* Destello que recorre la barra una vez que termino de llenarse */
+.tm-meter i::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);
+  transform:translateX(-100%);
+}
+.tm-panel.is-active .tm-meter i::after{animation:tm-brillo 1.6s ease-in-out 1.1s infinite}
+@keyframes tm-brillo{0%{transform:translateX(-100%)}55%,100%{transform:translateX(220%)}}
+
+/* El porcentaje se escribe con el contador de equipo.js */
+.tm-skill-pct{font-variant-numeric:tabular-nums;color:var(--gold);font-weight:700;margin-left:10px}
 
 /* Linea de tiempo / formacion */
 .tm-timeline{list-style:none;margin:0;padding:0 0 0 26px;position:relative}
+/* La linea se dibuja de arriba abajo al entrar el bloque */
 .tm-timeline::before{
   content:"";
   position:absolute;
   left:5px;top:6px;bottom:6px;
   width:1px;
   background:linear-gradient(180deg,var(--gold),transparent);
+  transform-origin:top;
+  transform:scaleY(1);
 }
+.tm-panel.is-active .tm-timeline::before{
+  animation:tm-linea 1.1s cubic-bezier(.16,.84,.34,1) .15s both;
+}
+@keyframes tm-linea{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+
 .tm-timeline li{position:relative;padding:0 0 22px}
 .tm-timeline li:last-child{padding-bottom:0}
+/* Cada hito aparece despues del anterior, siguiendo a la linea */
+.tm-panel.is-active .tm-timeline li{animation:tm-hito .6s cubic-bezier(.16,.84,.34,1) both}
+.tm-panel.is-active .tm-timeline li:nth-child(1){animation-delay:.30s}
+.tm-panel.is-active .tm-timeline li:nth-child(2){animation-delay:.42s}
+.tm-panel.is-active .tm-timeline li:nth-child(3){animation-delay:.54s}
+.tm-panel.is-active .tm-timeline li:nth-child(4){animation-delay:.66s}
+@keyframes tm-hito{from{opacity:0;transform:translate3d(-12px,0,0)}to{opacity:1;transform:none}}
+
 .tm-timeline li::before{
   content:"";
   position:absolute;
@@ -310,6 +450,16 @@
   border-radius:50%;
   background:var(--bg);
   border:1.5px solid var(--gold);
+  box-shadow:0 0 0 0 rgba(224,183,86,.45);
+}
+/* El punto del hito mas reciente late despacio */
+.tm-panel.is-active .tm-timeline li:first-child::before{
+  animation:tm-pulso 2.8s ease-out 1s infinite;
+}
+@keyframes tm-pulso{
+  0%{box-shadow:0 0 0 0 rgba(224,183,86,.45)}
+  70%{box-shadow:0 0 0 9px rgba(224,183,86,0)}
+  100%{box-shadow:0 0 0 0 rgba(224,183,86,0)}
 }
 .tm-timeline b{display:block;font-size:1.02rem}
 .tm-timeline span{display:block;margin-top:4px;color:var(--muted);font-size:.95rem;line-height:1.6}
@@ -328,7 +478,20 @@
   font-size:.82rem;
   font-weight:700;
   color:var(--muted);
+  transition:border-color .3s ease,color .3s ease,transform .3s ease;
 }
+.tm-tags li:hover{border-color:var(--gold);color:var(--text);transform:translateY(-3px)}
+/* Las etiquetas van apareciendo una tras otra */
+.tm-panel.is-active .tm-tags li{animation:tm-pop .5s cubic-bezier(.34,1.3,.64,1) both}
+.tm-panel.is-active .tm-tags li:nth-child(1){animation-delay:.40s}
+.tm-panel.is-active .tm-tags li:nth-child(2){animation-delay:.46s}
+.tm-panel.is-active .tm-tags li:nth-child(3){animation-delay:.52s}
+.tm-panel.is-active .tm-tags li:nth-child(4){animation-delay:.58s}
+.tm-panel.is-active .tm-tags li:nth-child(5){animation-delay:.64s}
+.tm-panel.is-active .tm-tags li:nth-child(6){animation-delay:.70s}
+.tm-panel.is-active .tm-tags li:nth-child(7){animation-delay:.76s}
+.tm-panel.is-active .tm-tags li:nth-child(8){animation-delay:.82s}
+@keyframes tm-pop{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:none}}
 
 /* Portafolio del integrante */
 /* Una pieza por fila: los banners son panoramicos (cerca de 2.9:1) y a dos
@@ -337,9 +500,29 @@
 .tm-work figure{margin:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--bg-soft)}
 /* Sin aspect-ratio ni object-fit: cada banner conserva su proporcion y se ve
    entero. Forzar 16/9 con cover recortaba los lados y cortaba el titulo. */
-.tm-work img{width:100%;height:auto;display:block;transition:transform .7s cubic-bezier(.22,.61,.36,1)}
+/* La imagen se mueve un poco mas lenta que el scroll dentro de su marco.
+   equipo.js escribe --tm-py; el escalado extra evita que asomen los bordes. */
+.tm-work img{
+  width:100%;
+  height:auto;
+  display:block;
+  transform:translate3d(0,var(--tm-py,0px),0) scale(1.07);
+  transition:transform .7s cubic-bezier(.22,.61,.36,1);
+}
 .tm-work a{display:block;overflow:hidden}
-.tm-work figure:hover img{transform:scale(1.04)}
+.tm-work figure{position:relative}
+.tm-work figure:hover img{transform:translate3d(0,var(--tm-py,0px),0) scale(1.12)}
+/* Barrido de luz al pasar el cursor, igual que en las tarjetas del selector */
+.tm-work figure::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(115deg,transparent 38%,rgba(224,183,86,.14) 50%,transparent 62%);
+  transform:translateX(-110%);
+  transition:transform .9s cubic-bezier(.22,.61,.36,1);
+}
+.tm-work figure:hover::after{transform:translateX(110%)}
 .tm-work figcaption{padding:12px 14px;font-size:.9rem;color:var(--muted)}
 .tm-work figcaption b{display:block;color:var(--text);font-size:.98rem;margin-bottom:3px}
 
@@ -383,7 +566,15 @@
   backdrop-filter:blur(14px);
   transition:transform .5s cubic-bezier(.22,.61,.36,1),border-color .4s ease;
 }
-.tm-cap:hover{transform:translateY(-6px);border-color:var(--line-strong)}
+/* Flotan muy despacio y desfasadas entre si, para que la fila no quede quieta */
+.tm-cap.is-in{animation:tm-flotar 7s ease-in-out infinite}
+.tm-cap.is-in:nth-child(2){animation-delay:-1.75s}
+.tm-cap.is-in:nth-child(3){animation-delay:-3.5s}
+.tm-cap.is-in:nth-child(4){animation-delay:-5.25s}
+@keyframes tm-flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.tm-cap:hover{animation-play-state:paused;transform:translateY(-10px);border-color:var(--line-strong)}
+/* Al pasar el cursor el icono se vuelve a dibujar */
+.tm-cap:hover .tm-cap-icon > *{animation:tm-draw 1.1s cubic-bezier(.22,.61,.36,1) forwards}
 .tm-cap h3{margin:20px 0 10px;font-family:Georgia,"Times New Roman",serif;font-size:1.4rem}
 .tm-cap p{margin:0;color:var(--muted);line-height:1.65;font-size:.98rem}
 .tm-cap-icon{width:52px;height:52px;stroke:var(--gold);fill:none;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
@@ -436,12 +627,33 @@
 @media (prefers-reduced-motion:reduce){
   .tm-reveal{opacity:1;transform:none;transition:none}
   .tm-hero-layer{transform:none !important}
+  .tm-linea > span{transform:none;transition:none}
+  .tm-particulas,.tm-halo{display:none}
   .tm-mono-ring{stroke-dashoffset:0;animation:none}
-  .tm-card[aria-selected="true"] .tm-mono-spark{animation:none;opacity:1}
+  .tm-card[aria-selected="true"] .tm-mono-spark,
+  .tm-card[aria-selected="true"] .tm-mono-dash,
+  .tm-card[aria-selected="true"] .tm-mono-orbita{animation:none}
+  .tm-mono-dash,.tm-mono-orbita{opacity:0}
+  .tm-mono-text{transition:none}
+  .tm-card:hover .tm-mono-text{transform:none}
   .tm-cap-icon > *{stroke-dashoffset:0}
-  .tm-cap.is-in .tm-cap-icon > *{animation:none}
-  .tm-panel.is-active .tm-panel-inner{animation:none}
-  .tm-card,.tm-cap,.tm-work img,.tm-meter i{transition:none}
+  .tm-cap.is-in .tm-cap-icon > *,
+  .tm-cap:hover .tm-cap-icon > *{animation:none}
+  .tm-cap.is-in{animation:none}
+  .tm-panel.is-active .tm-block,
+  .tm-panel.is-active .tm-timeline li,
+  .tm-panel.is-active .tm-tags li{animation:none}
+  .tm-panel.is-active .tm-timeline li:first-child::before{animation:none}
+  .tm-timeline::before{transform:scaleY(1);transition:none}
+  .tm-panel.is-active .tm-timeline::before{animation:none;transform:scaleY(1)}
+  .tm-panel.is-active .tm-meter i{animation:none;width:var(--tm-lvl,0%)}
+  .tm-panel.is-active .tm-meter i::after{animation:none}
+  .tm-work img{transform:none;transition:none}
+  .tm-work figure:hover img{transform:none}
+  .tm-work figure::after{display:none}
+  .tm-card,.tm-cap,.tm-meter i,.tm-tags li{transition:none}
+  .tm-card{transform:none}
   .tm-card:hover,.tm-cap:hover,.tm-card[aria-selected="true"]{transform:none}
   .tm-card::after{display:none}
+  .tm-progreso{display:none}
 }

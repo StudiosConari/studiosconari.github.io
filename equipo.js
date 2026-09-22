@@ -29,6 +29,11 @@
       p.hidden = !activo;
     });
 
+    // Los porcentajes de especialidad vuelven a contar en cada cambio, para
+    // que el panel no aparezca con las cifras ya puestas.
+    const activo = document.getElementById(id);
+    if (activo) activo.querySelectorAll('[data-tm-count]').forEach(contar);
+
     // Deja el integrante en la URL para poder compartir el enlace directo.
     // Solo al elegir: si se escribiera tambien al cargar, la siguiente visita
     // llegaria con el hash puesto y el navegador saltaria a mitad del panel.
@@ -74,6 +79,10 @@
   }
 
   /* --- Revelado al entrar en pantalla ------------------------------------- */
+  // El hero entra siempre: esta sobre el pliegue y su titulo se revela al cargar
+  const heroSeccion = document.querySelector('.tm-hero');
+  if (heroSeccion) requestAnimationFrame(() => heroSeccion.classList.add('is-in'));
+
   const porRevelar = [...document.querySelectorAll('.tm-reveal, .tm-cap')];
 
   if (!('IntersectionObserver' in window) || menosMovimiento.matches) {
@@ -153,6 +162,165 @@
     }, { passive: true });
 
     pintar();
+  }
+
+  /* --- Barra de avance de lectura ------------------------------------------ */
+  const barra = document.querySelector('.tm-progreso i');
+  if (barra) {
+    let pedido = false;
+    const pintarBarra = () => {
+      pedido = false;
+      const alto = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = alto > 0 ? (window.scrollY / alto) * 100 : 0;
+      barra.style.width = Math.min(100, Math.max(0, pct)).toFixed(2) + '%';
+    };
+    window.addEventListener('scroll', () => {
+      if (pedido) return;
+      pedido = true;
+      requestAnimationFrame(pintarBarra);
+    }, { passive: true });
+    window.addEventListener('resize', pintarBarra, { passive: true });
+    pintarBarra();
+  }
+
+  /* --- Inclinacion de las tarjetas segun el puntero ------------------------
+     Se escribe --tm-rx / --tm-ry en cada tarjeta. Solo con puntero fino: en
+     tactil no hay hover y el efecto estorbaria. */
+  const punteroFino = window.matchMedia('(hover: hover) and (pointer: fine)');
+
+  if (punteroFino.matches && !menosMovimiento.matches) {
+    const GIRO = 7;   // grados maximos
+    tarjetas.forEach((tarjeta) => {
+      let cuadro = null;
+      tarjeta.addEventListener('pointerenter', () => {
+        tarjeta.classList.add('is-tilting');
+      });
+      tarjeta.addEventListener('pointermove', (ev) => {
+        if (cuadro) return;
+        cuadro = requestAnimationFrame(() => {
+          cuadro = null;
+          const c = tarjeta.getBoundingClientRect();
+          if (!c.width || !c.height) return;
+          // Acotado a -0.5..0.5: si el puntero queda fuera del recuadro, o el
+          // rect cambia por un scroll en curso, el giro no se dispara.
+          const lim = (v) => Math.max(-0.5, Math.min(0.5, v));
+          const px = lim((ev.clientX - c.left) / c.width - 0.5);
+          const py = lim((ev.clientY - c.top) / c.height - 0.5);
+          tarjeta.style.setProperty('--tm-ry', (px * GIRO * 2).toFixed(2) + 'deg');
+          tarjeta.style.setProperty('--tm-rx', (-py * GIRO * 2).toFixed(2) + 'deg');
+        });
+      });
+      tarjeta.addEventListener('pointerleave', () => {
+        tarjeta.classList.remove('is-tilting');
+        tarjeta.style.removeProperty('--tm-rx');
+        tarjeta.style.removeProperty('--tm-ry');
+      });
+    });
+  }
+
+  /* --- Halo del hero que sigue al puntero ---------------------------------- */
+  if (hero && !menosMovimiento.matches && punteroFino.matches) {
+    let cuadro = null;
+    hero.addEventListener('pointermove', (ev) => {
+      if (cuadro) return;
+      cuadro = requestAnimationFrame(() => {
+        cuadro = null;
+        const c = hero.getBoundingClientRect();
+        hero.style.setProperty('--mx', (((ev.clientX - c.left) / c.width) * 100).toFixed(1) + '%');
+        hero.style.setProperty('--my', (((ev.clientY - c.top) / c.height) * 100).toFixed(1) + '%');
+      });
+    }, { passive: true });
+  }
+
+  /* --- Particulas del hero -------------------------------------------------
+     Motas doradas que suben despacio. Se dibujan en un canvas y se detienen
+     cuando el hero sale de pantalla, para no gastar cuadros de balde. */
+  const lienzo = document.querySelector('.tm-particulas');
+
+  if (lienzo && hero && !menosMovimiento.matches) {
+    const ctx = lienzo.getContext('2d', { alpha: true });
+    let motas = [], ancho = 0, alto = 0, dpr = 1, animando = false, id = 0;
+
+    const medir = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      ancho = hero.clientWidth;
+      alto = hero.clientHeight;
+      lienzo.width = Math.round(ancho * dpr);
+      lienzo.height = Math.round(alto * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // densidad proporcional al area, con tope para pantallas grandes
+      const cuantas = Math.min(110, Math.max(28, Math.round((ancho * alto) / 9000)));
+      motas = Array.from({ length: cuantas }, () => ({
+        x: Math.random() * ancho,
+        y: Math.random() * alto,
+        r: Math.random() * 1.9 + 0.6,
+        vy: -(Math.random() * 0.26 + 0.07),
+        vx: (Math.random() - 0.5) * 0.14,
+        a: Math.random() * 0.5 + 0.22,
+        f: Math.random() * Math.PI * 2,      // fase del parpadeo
+      }));
+    };
+
+    const pintarMotas = () => {
+      ctx.clearRect(0, 0, ancho, alto);
+      const t = performance.now() / 1000;
+      for (const m of motas) {
+        m.y += m.vy;
+        m.x += m.vx;
+        if (m.y < -6) { m.y = alto + 6; m.x = Math.random() * ancho; }
+        if (m.x < -6) m.x = ancho + 6;
+        if (m.x > ancho + 6) m.x = -6;
+        const brillo = m.a * (0.6 + 0.4 * Math.sin(t * 1.4 + m.f));
+        // halo tenue alrededor de cada mota, para que no se vean como puntos planos
+        const halo = ctx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r * 3.2);
+        halo.addColorStop(0, 'rgba(232,196,110,' + brillo.toFixed(3) + ')');
+        halo.addColorStop(1, 'rgba(224,183,86,0)');
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.r * 3.2, 0, Math.PI * 2);
+        ctx.fillStyle = halo;
+        ctx.fill();
+      }
+      id = requestAnimationFrame(pintarMotas);
+    };
+
+    const arrancar = () => { if (!animando) { animando = true; id = requestAnimationFrame(pintarMotas); } };
+    const parar = () => { if (animando) { animando = false; cancelAnimationFrame(id); } };
+
+    medir();
+    window.addEventListener('resize', medir, { passive: true });
+
+    // solo mientras el hero esta a la vista
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((e) => (e[0].isIntersecting ? arrancar() : parar()), { threshold: 0 }).observe(hero);
+    } else {
+      arrancar();
+    }
+    document.addEventListener('visibilitychange', () => (document.hidden ? parar() : arrancar()));
+  }
+
+  /* --- Parallax de las imagenes del portafolio -----------------------------
+     Cada imagen se desplaza dentro de su marco a distinta velocidad que el
+     scroll. El escalado extra del CSS evita que asomen los bordes. */
+  const piezas = [...document.querySelectorAll('.tm-work img')];
+
+  if (piezas.length && !menosMovimiento.matches) {
+    let pedido = false;
+    const pintarPiezas = () => {
+      pedido = false;
+      const centro = window.innerHeight / 2;
+      for (const img of piezas) {
+        const c = img.getBoundingClientRect();
+        if (c.bottom < -100 || c.top > window.innerHeight + 100) continue;
+        const d = (c.top + c.height / 2 - centro) / centro;   // -1 .. 1
+        img.style.setProperty('--tm-py', (d * -14).toFixed(1) + 'px');
+      }
+    };
+    window.addEventListener('scroll', () => {
+      if (pedido) return;
+      pedido = true;
+      requestAnimationFrame(pintarPiezas);
+    }, { passive: true });
+    pintarPiezas();
   }
 
   /* --- Año del pie de pagina ---------------------------------------------- */

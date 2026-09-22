@@ -42,6 +42,9 @@
   <script src="equipo.js" defer></script>
 </head>
 <body>
+  <!-- Barra de avance de lectura -->
+  <div class="tm-progreso" aria-hidden="true"><i></i></div>
+
   <header class="site-header">
     <div class="shell nav-row">
       <a class="brand" href="index.html#inicio" aria-label="Studios Conari, inicio">
@@ -76,10 +79,17 @@
     <section class="tm-hero" aria-label="Presentación del equipo">
       <div class="tm-hero-layer tm-hero-glow" data-tm-speed="0.18" aria-hidden="true"></div>
       <div class="tm-hero-layer tm-hero-grid" data-tm-speed="0.34" aria-hidden="true"></div>
+      <!-- Particulas y halo que sigue al puntero, ambos dibujados por equipo.js -->
+      <canvas class="tm-particulas" aria-hidden="true"></canvas>
+      <div class="tm-halo" aria-hidden="true"></div>
 
       <div class="shell tm-hero-content">
         <p class="eyebrow tm-reveal">Quiénes somos</p>
-        <h1 class="tm-reveal" data-tm-delay="1">Tres oficios,<br>una misma <em>dirección</em>.</h1>
+        <!-- Cada linea entra desde abajo tras su propia mascara -->
+        <h1 class="tm-titulo">
+          <span class="tm-linea"><span>Tres oficios,</span></span>
+          <span class="tm-linea"><span>una misma <em>dirección</em>.</span></span>
+        </h1>
         <p class="tm-lead tm-reveal" data-tm-delay="2">
           Studios Conari es un estudio creativo chileno donde convergen el arte, la tecnología
           y la investigación cultural. Detrás de cada proyecto hay un equipo que diseña,
@@ -121,6 +131,8 @@
             <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
               <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
               <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
+              <circle class="tm-mono-dash" cx="60" cy="60" r="54"/>
+              <g class="tm-mono-orbita"><circle cx="60" cy="6" r="2.6"/></g>
               <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
               <text class="tm-mono-text" x="60" y="61">MC</text>
             </svg>
@@ -135,6 +147,8 @@
             <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
               <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
               <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
+              <circle class="tm-mono-dash" cx="60" cy="60" r="54"/>
+              <g class="tm-mono-orbita"><circle cx="60" cy="6" r="2.6"/></g>
               <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
               <text class="tm-mono-text" x="60" y="61">KR</text>
             </svg>
@@ -149,6 +163,8 @@
             <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
               <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
               <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
+              <circle class="tm-mono-dash" cx="60" cy="60" r="54"/>
+              <g class="tm-mono-orbita"><circle cx="60" cy="6" r="2.6"/></g>
               <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
               <text class="tm-mono-text" x="60" y="61">EM</text>
             </svg>
@@ -204,22 +220,19 @@
                       <li>
                         <div class="tm-skill-top">
                           <span class="tm-skill-name tm-todo">Especialidad por definir</span>
-                          <span class="tm-skill-lvl">Avanzado</span>
-                        </div>
+                          <span class="tm-skill-lvl">Avanzado<b class="tm-skill-pct" data-tm-count="85" data-tm-suffix="%">0%</b></span></div>
                         <div class="tm-meter"><i style="--tm-lvl:85%"></i></div>
                       </li>
                       <li>
                         <div class="tm-skill-top">
                           <span class="tm-skill-name tm-todo">Especialidad por definir</span>
-                          <span class="tm-skill-lvl">Avanzado</span>
-                        </div>
+                          <span class="tm-skill-lvl">Avanzado<b class="tm-skill-pct" data-tm-count="75" data-tm-suffix="%">0%</b></span></div>
                         <div class="tm-meter"><i style="--tm-lvl:75%"></i></div>
                       </li>
                       <li>
                         <div class="tm-skill-top">
                           <span class="tm-skill-name tm-todo">Especialidad por definir</span>
-                          <span class="tm-skill-lvl">Intermedio</span>
-                        </div>
+                          <span class="tm-skill-lvl">Intermedio<b class="tm-skill-pct" data-tm-count="60" data-tm-suffix="%">0%</b></span></div>
                         <div class="tm-meter"><i style="--tm-lvl:60%"></i></div>
                       </li>
                     </ul>
@@ -325,29 +338,25 @@
                       <li>
                         <div class="tm-skill-top">
                           <span class="tm-skill-name">Desarrollo en Godot Engine</span>
-                          <span class="tm-skill-lvl">Avanzado</span>
-                        </div>
+                          <span class="tm-skill-lvl">Avanzado<b class="tm-skill-pct" data-tm-count="90" data-tm-suffix="%">0%</b></span></div>
                         <div class="tm-meter"><i style="--tm-lvl:90%"></i></div>
                       </li>
                       <li>
                         <div class="tm-skill-top">
                           <span class="tm-skill-name">Arquitectura y calidad de software</span>
-                          <span class="tm-skill-lvl">Avanzado</span>
-                        </div>
+                          <span class="tm-skill-lvl">Avanzado<b class="tm-skill-pct" data-tm-count="88" data-tm-suffix="%">0%</b></span></div>
                         <div class="tm-meter"><i style="--tm-lvl:88%"></i></div>
                       </li>
                       <li>
                         <div class="tm-skill-top">
                           <span class="tm-skill-name">Business Intelligence y datos</span>
-                          <span class="tm-skill-lvl">Avanzado</span>
-                        </div>
+                          <span class="tm-skill-lvl">Avanzado<b class="tm-skill-pct" data-tm-count="92" data-tm-suffix="%">0%</b></span></div>
                         <div class="tm-meter"><i style="--tm-lvl:92%"></i></div>
                       </li>
                       <li>
                         <div class="tm-skill-top">
                           <span class="tm-skill-name">Gestión de proyectos y equipos TI</span>
-                          <span class="tm-skill-lvl">Avanzado</span>
-                        </div>
+                          <span class="tm-skill-lvl">Avanzado<b class="tm-skill-pct" data-tm-count="85" data-tm-suffix="%">0%</b></span></div>
                         <div class="tm-meter"><i style="--tm-lvl:85%"></i></div>
                       </li>
                     </ul>
@@ -378,7 +387,7 @@
                       <li>
                         <em>2018 · 2023</em>
                         <b>Ingeniero en Informática</b>
-                        <span>Instituto Profesional Duoc UC. Titulado en septiembre de 2023 con nota 5,9.</span>
+                        <span>Instituto Profesional Duoc UC. Titulado en septiembre de 2023.</span>
                       </li>
                     </ul>
                   </article>
@@ -470,22 +479,19 @@
                       <li>
                         <div class="tm-skill-top">
                           <span class="tm-skill-name tm-todo">Especialidad por definir</span>
-                          <span class="tm-skill-lvl">Avanzado</span>
-                        </div>
+                          <span class="tm-skill-lvl">Avanzado<b class="tm-skill-pct" data-tm-count="82" data-tm-suffix="%">0%</b></span></div>
                         <div class="tm-meter"><i style="--tm-lvl:82%"></i></div>
                       </li>
                       <li>
                         <div class="tm-skill-top">
                           <span class="tm-skill-name tm-todo">Especialidad por definir</span>
-                          <span class="tm-skill-lvl">Avanzado</span>
-                        </div>
+                          <span class="tm-skill-lvl">Avanzado<b class="tm-skill-pct" data-tm-count="72" data-tm-suffix="%">0%</b></span></div>
                         <div class="tm-meter"><i style="--tm-lvl:72%"></i></div>
                       </li>
                       <li>
                         <div class="tm-skill-top">
                           <span class="tm-skill-name tm-todo">Especialidad por definir</span>
-                          <span class="tm-skill-lvl">Intermedio</span>
-                        </div>
+                          <span class="tm-skill-lvl">Intermedio<b class="tm-skill-pct" data-tm-count="58" data-tm-suffix="%">0%</b></span></div>
                         <div class="tm-meter"><i style="--tm-lvl:58%"></i></div>
                       </li>
                     </ul>
