@@ -1,0 +1,166 @@
+/* ===========================================================================
+   Studios Conari - Capa de movimiento compartida
+   La usan el landing (index.html, 404.html) y la pagina de equipo.
+   Todo lo de aqui va con prefijo mo- (motion) y es generico: se aplica
+   poniendo clases en el HTML, sin saber de que pagina se trata.
+
+   Depende de los tokens de color de styles.css (--gold, --line, --muted).
+   =========================================================================== */
+
+/* --- Revelado al entrar en pantalla --------------------------------------
+   Estado inicial de cualquier elemento que entra con el scroll. motion.js le
+   agrega .is-in cuando cruza el viewport. */
+/* Usa la propiedad translate y no transform: asi un mismo elemento puede
+   llevar .mo-reveal y .mo-tilt a la vez sin que una pise a la otra. */
+.mo-reveal{
+  opacity:0;
+  translate:0 28px;
+  transition:opacity .7s cubic-bezier(.22,.61,.36,1),
+             translate .7s cubic-bezier(.22,.61,.36,1);
+  will-change:opacity,translate;
+}
+.mo-reveal.is-in{opacity:1;translate:0 0}
+.mo-reveal[data-mo-delay="1"]{transition-delay:.09s}
+.mo-reveal[data-mo-delay="2"]{transition-delay:.18s}
+.mo-reveal[data-mo-delay="3"]{transition-delay:.27s}
+.mo-reveal[data-mo-delay="4"]{transition-delay:.36s}
+.mo-reveal[data-mo-delay="5"]{transition-delay:.45s}
+.mo-reveal[data-mo-delay="6"]{transition-delay:.54s}
+
+/* Sin JavaScript nada puede quedar invisible */
+.no-js .mo-reveal{opacity:1;transform:none}
+
+/* --- Barra de avance de lectura ------------------------------------------ */
+.mo-progreso{
+  position:fixed;
+  inset:0 0 auto;
+  height:3px;
+  z-index:60;
+  background:transparent;
+  pointer-events:none;
+}
+.mo-progreso i{
+  display:block;
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,rgba(224,183,86,.35),var(--gold));
+  box-shadow:0 0 14px rgba(224,183,86,.55);
+}
+
+/* --- Titulo que entra linea por linea ------------------------------------
+   Cada linea va envuelta en .mo-linea, que recorta, y un span interior que
+   sube desde abajo. El contenedor recibe .is-in para dispararlo. */
+.mo-linea{display:block;overflow:hidden;padding-bottom:.06em}
+.mo-linea > span{
+  display:block;
+  transform:translate3d(0,110%,0);
+  transition:transform 1s cubic-bezier(.16,.84,.34,1);
+}
+.is-in > .mo-linea > span,
+.is-in .mo-titulo .mo-linea > span{transform:none}
+.mo-linea:nth-child(2) > span{transition-delay:.10s}
+.mo-linea:nth-child(3) > span{transition-delay:.20s}
+.mo-linea:nth-child(4) > span{transition-delay:.30s}
+.no-js .mo-linea > span{transform:none}
+
+/* --- Particulas y halo ---------------------------------------------------
+   El canvas lo dibuja motion.js. El halo sigue al puntero: motion.js escribe
+   --mx y --my sobre el contenedor marcado con data-mo-hero. */
+.mo-particulas{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  opacity:.75;
+}
+.mo-halo{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .6s ease;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),
+             rgba(224,183,86,.14) 0%, transparent 70%);
+}
+[data-mo-hero]:hover .mo-halo{opacity:1}
+
+/* --- Marco con zoom al pasar el cursor -----------------------------------
+   La imagen se ve entera en reposo: cualquier escalado permanente le
+   recortaria los bordes, y los banners llevan su titulo impreso. */
+.mo-zoom{display:block;overflow:hidden}
+.mo-zoom img{display:block;width:100%;height:auto;transition:transform .7s cubic-bezier(.22,.61,.36,1)}
+.mo-zoom:hover img{transform:scale(1.05)}
+/* --- Inclinacion segun el puntero ----------------------------------------
+   motion.js escribe --mo-rx y --mo-ry en los elementos con .mo-tilt. */
+.mo-tilt{
+  transform:perspective(1100px)
+            rotateX(var(--mo-rx,0deg))
+            rotateY(var(--mo-ry,0deg))
+            translateY(var(--mo-ty,0));
+  transition:transform .5s cubic-bezier(.22,.61,.36,1);
+}
+/* Mientras el puntero esta encima la inclinacion lo sigue sin retardo */
+.mo-tilt.is-tilting{transition:none}
+.mo-tilt-wrap{perspective:1100px}
+
+/* --- Barrido de luz al pasar el cursor ----------------------------------- */
+.mo-brillo{position:relative;overflow:hidden}
+.mo-brillo::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(115deg,transparent 32%,rgba(224,183,86,.15) 50%,transparent 68%);
+  transform:translateX(-120%);
+  transition:transform .9s cubic-bezier(.22,.61,.36,1);
+}
+.mo-brillo:hover::after{transform:translateX(120%)}
+
+/* --- Flotacion lenta -----------------------------------------------------
+   Para grupos: cada hijo entra desfasado y la fila no queda quieta. */
+.mo-flota.is-in{animation:mo-flotar 7s ease-in-out infinite}
+.mo-flota.is-in:nth-child(2){animation-delay:-1.75s}
+.mo-flota.is-in:nth-child(3){animation-delay:-3.5s}
+.mo-flota.is-in:nth-child(4){animation-delay:-5.25s}
+.mo-flota:hover{animation-play-state:paused}
+@keyframes mo-flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+
+/* --- Aparicion en cadena -------------------------------------------------
+   Se pone en el contenedor; sus hijos directos entran uno tras otro. */
+.mo-cadena.is-in > *{animation:mo-pop .55s cubic-bezier(.34,1.3,.64,1) both}
+.mo-cadena.is-in > *:nth-child(1){animation-delay:.04s}
+.mo-cadena.is-in > *:nth-child(2){animation-delay:.12s}
+.mo-cadena.is-in > *:nth-child(3){animation-delay:.20s}
+.mo-cadena.is-in > *:nth-child(4){animation-delay:.28s}
+.mo-cadena.is-in > *:nth-child(5){animation-delay:.36s}
+.mo-cadena.is-in > *:nth-child(6){animation-delay:.44s}
+.mo-cadena.is-in > *:nth-child(7){animation-delay:.52s}
+.mo-cadena.is-in > *:nth-child(8){animation-delay:.60s}
+@keyframes mo-pop{from{opacity:0;transform:translate3d(-10px,0,0)}to{opacity:1;transform:none}}
+
+/* --- Trazado de SVG ------------------------------------------------------ */
+@keyframes mo-draw{to{stroke-dashoffset:0}}
+
+/* --- Respeto por quien pide menos movimiento ------------------------------ */
+@media (prefers-reduced-motion:reduce){
+  .mo-reveal{opacity:1;transform:none;transition:none}
+  .mo-linea > span{transform:none;transition:none}
+  .mo-particulas,.mo-halo,.mo-progreso{display:none}
+  .mo-zoom img{transition:none}
+  .mo-zoom:hover img{transform:none}
+  .mo-tilt{transform:none;transition:none}
+  .mo-brillo::after{display:none}
+  .mo-flota.is-in{animation:none}
+  .mo-cadena.is-in > *{animation:none}
+}
+
+/* --- Capa con parallax vertical ------------------------------------------
+   Se aplica a cualquier elemento con data-mo-speed; su posicionamiento lo
+   define la pagina. motion.js escribe --mo-shift. */
+[data-mo-speed]{transform:translate3d(0,calc(var(--mo-shift,0) * 1px),0)}
+@media (prefers-reduced-motion:reduce){
+  [data-mo-speed]{transform:none !important}
+}

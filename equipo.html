@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="es" data-theme="night" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Equipo | Studios Conari</title>
+  <meta name="description" content="Quienes forman Studios Conari: perfiles, trayectoria y portafolio del equipo detras de nuestros videojuegos, universos narrativos e identidades visuales.">
+  <link rel="canonical" href="https://studiosconari.github.io/equipo.html">
+  <link rel="icon" href="assets/favicon.png" type="image/png" sizes="512x512">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+  <!-- Open Graph / redes sociales -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Studios Conari">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:url" content="https://studiosconari.github.io/equipo.html">
+  <meta property="og:title" content="Equipo | Studios Conari">
+  <meta property="og:description" content="Quienes forman Studios Conari: perfiles, trayectoria y portafolio del equipo.">
+  <meta property="og:image" content="https://studiosconari.github.io/assets/background-night.jpg">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="900">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Equipo | Studios Conari">
+  <meta name="twitter:description" content="Quienes forman Studios Conari: perfiles, trayectoria y portafolio del equipo.">
+  <meta name="twitter:image" content="https://studiosconari.github.io/assets/background-night.jpg">
+
+  <!-- Aplica el tema guardado antes del primer pintado, para evitar el parpadeo.
+       Debe ir aqui, sincrono y antes de la hoja de estilos. -->
+  <script>
+    (function () {
+      document.documentElement.classList.remove('no-js');
+      try {
+        var t = localStorage.getItem('conari-theme');
+        if (t === 'day' || t === 'night') document.documentElement.dataset.theme = t;
+      } catch (e) { /* localStorage bloqueado: se queda con el tema por defecto */ }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="motion.css">
+  <link rel="stylesheet" href="equipo.css">
+  <script src="script.js" defer></script>
+  <script src="motion.js" defer></script>
+  <script src="equipo.js" defer></script>
+</head>
+<body>
+  <!-- Barra de avance de lectura -->
+  <div class="mo-progreso" aria-hidden="true"><i></i></div>
+
+  <header class="site-header">
+    <div class="shell nav-row">
+      <a class="brand" href="index.html#inicio" aria-label="Studios Conari, inicio">
+        <img id="brandLogo" src="assets/header-wordmark-night-transparent.png" alt="Studios Conari" width="620" height="362" fetchpriority="high" decoding="async">
+        <script>
+          // Corrige el logo antes de pintarlo si el tema guardado es el diurno.
+          (function () {
+            var l = document.getElementById('brandLogo');
+            if (l && document.documentElement.dataset.theme === 'day') {
+              l.src = 'assets/header-wordmark-transparent.png';
+            }
+          })();
+        </script>
+      </a>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="index.html#estudio">El estudio</a>
+        <a href="index.html#esencia">Esencia</a>
+        <a href="index.html#trayectoria">Trayectoria</a>
+        <a href="index.html#marca">Marca</a>
+        <a href="equipo.html" aria-current="page">Equipo</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Cambiar modo visual" aria-pressed="true">
+        <span>☀</span><i></i><span>☾</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= HERO CON SELECTOR =================
+         El hero y la eleccion de integrante van juntos, para que los tres
+         nombres esten a la vista desde el primer pantallazo. -->
+    <section class="tm-hero" id="integrantes" data-mo-hero aria-labelledby="tm-titulo-equipo">
+      <div class="tm-hero-layer tm-hero-glow" data-mo-speed="0.18" aria-hidden="true"></div>
+      <canvas class="mo-particulas" aria-hidden="true"></canvas>
+      <div class="mo-halo" aria-hidden="true"></div>
+
+      <div class="shell tm-hero-content">
+        <p class="eyebrow mo-reveal">Quiénes somos</p>
+        <!-- Cada linea entra desde abajo tras su propia mascara -->
+        <h1 class="tm-titulo mo-titulo" id="tm-titulo-equipo">
+          <span class="mo-linea"><span>Tres oficios,</span></span>
+          <span class="mo-linea"><span>una misma <em>dirección</em>.</span></span>
+        </h1>
+        <p class="tm-lead mo-reveal" data-mo-delay="2">
+          Un estudio creativo chileno donde convergen el arte, la tecnología y la
+          investigación cultural. Estas son las personas que lo hacen posible.
+        </p>
+
+        <p class="tm-pista mo-reveal" data-mo-delay="3">Elige un integrante para conocer su trabajo</p>
+
+      <div class="tm-picker mo-reveal" data-mo-delay="4" role="tablist" aria-label="Integrantes de Studios Conari">
+
+        <button class="tm-card mo-tilt" type="button" role="tab" data-tm-for="maria-ines"
+                aria-selected="true" aria-controls="maria-ines" id="tab-maria-ines">
+          <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
+            <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
+            <circle class="tm-mono-dash" cx="60" cy="60" r="54"/>
+            <g class="tm-mono-orbita"><circle cx="60" cy="6" r="2.6"/></g>
+            <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
+            <text class="tm-mono-text" x="60" y="61">MC</text>
+          </svg>
+          <span class="tm-card-text">
+            <span class="tm-card-name">María Inés Cisterna Escobar</span>
+            <span class="tm-card-role">Dirección de arte</span>
+          </span>
+        </button>
+
+        <button class="tm-card mo-tilt" type="button" role="tab" data-tm-for="kevin"
+                aria-selected="false" aria-controls="kevin" id="tab-kevin">
+          <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
+            <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
+            <circle class="tm-mono-dash" cx="60" cy="60" r="54"/>
+            <g class="tm-mono-orbita"><circle cx="60" cy="6" r="2.6"/></g>
+            <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
+            <text class="tm-mono-text" x="60" y="61">KR</text>
+          </svg>
+          <span class="tm-card-text">
+            <span class="tm-card-name">Kevin Alexis del Río Morgado</span>
+            <span class="tm-card-role">Lead Programmer</span>
+          </span>
+        </button>
+
+        <button class="tm-card mo-tilt" type="button" role="tab" data-tm-for="elias"
+                aria-selected="false" aria-controls="elias" id="tab-elias">
+          <svg class="tm-mono" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="tm-mono-ring" cx="60" cy="60" r="48"/>
+            <circle class="tm-mono-ring tm-mono-ring--inner" cx="60" cy="60" r="36"/>
+            <circle class="tm-mono-dash" cx="60" cy="60" r="54"/>
+            <g class="tm-mono-orbita"><circle cx="60" cy="6" r="2.6"/></g>
+            <path class="tm-mono-spark" d="M60 4 L62.4 10 L68 12.4 L62.4 14.8 L60 20.8 L57.6 14.8 L52 12.4 L57.6 10 Z"/>
+            <text class="tm-mono-text" x="60" y="61">EM</text>
+          </svg>
+          <span class="tm-card-text">
+            <span class="tm-card-name">Elías Alejandro Medel Collao</span>
+            <span class="tm-card-role">Diseño 3D y animación</span>
+          </span>
+        </button>
+
+      </div>
+      </div>
+    </section>
+
+    <!-- ================= DETALLE DEL INTEGRANTE ================= -->
+    <section class="tm-section tm-section--detalle" aria-label="Perfil del integrante seleccionado">
+      <div class="shell">
+        <div class="tm-stage">
+
+          <!-- ---------- María Inés Cisterna Escobar ---------- -->
+<section class="tm-panel is-active" id="maria-ines" role="tabpanel" aria-labelledby="tab-maria-ines" tabindex="0">
+            <div class="tm-panel-inner">
+              <div class="tm-panel-grid">
+
+                <div>
+                  <article class="tm-block">
+                    <h3>María Inés Cisterna Escobar</h3>
+                    <p class="tm-panel-role">Socia fundadora · Dirección de arte y producción editorial</p>
+                    <p class="tm-bio">
+                      Matrona titulada de la Universidad San Sebastián, con cinco años de experiencia
+                      en salud pública y dos en diseño y desarrollo digital. Está certificada en
+                      Desarrollo de Aplicaciones Full Stack Java por SENCE y Talento Digital, con
+                      credencial verificable, y cursa el Certificado Profesional de Análisis de
+                      Datos de Google.
+                    </p>
+                    <p class="tm-bio">
+                      En Studios Conari dirige el arte y la producción editorial: identidad visual,
+                      sistemas de plantillas, diagramación, edición y corrección de estilo,
+                      ilustración digital y modelado 3D. Desarrolló además el sitio web del estudio
+                      en HTML5, CSS y JavaScript.
+                    </p>
+                    <p class="tm-bio">
+                      Resuelve un encargo de principio a fin —contenido, edición, diseño, ilustración
+                      y entrega— con el rigor documental y el cumplimiento de plazos que exige el
+                      trabajo con normativa clínica.
+                    </p>
+                    <ul class="tm-links">
+                      <li>
+                        <a href="https://github.com/manecist" target="_blank" rel="noreferrer noopener">
+                          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+                          github.com/manecist
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://www.linkedin.com/in/maria-cisterna-e" target="_blank" rel="noreferrer noopener">
+                          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.6 5.3H.9V16h2.7V5.3ZM2.25 0a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2ZM16 9.9c0-3-1.6-4.8-4-4.8-1.4 0-2.4.6-3 1.6V5.3H6.3V16H9v-5.6c0-1.4.7-2.3 1.9-2.3s1.8.8 1.8 2.3V16H16V9.9Z"/></svg>
+                          LinkedIn
+                        </a>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Portafolio</h4>
+                    <div class="tm-work">
+                      <figure>
+                        <img src="assets/banner-vilu.png" alt="Banner de VILU" width="1024" height="358" loading="lazy" decoding="async">
+                        <figcaption><b>VILU</b>Diseñadora principal de concept art: personajes, ambientes, assets, HUD e interfaz. También modelado, texturizado, rigging y animación 3D en Blender.</figcaption>
+                      </figure>
+                      <figure>
+                        <a href="https://studiosconari.github.io/" target="_blank" rel="noreferrer noopener">
+                          <img src="assets/banner-sitio.png" alt="Banner del sitio web de Studios Conari" width="1024" height="358" loading="lazy" decoding="async">
+                        </a>
+                        <figcaption><b>Sitio web del estudio</b>Diseño de la identidad del sitio y desarrollo completo del front-end en HTML5, CSS y JavaScript, publicado con GitHub Pages.</figcaption>
+                      </figure>
+                      <figure>
+                        <a href="https://github.com/manecist/Ecommerce-Portafolio-Final-M7" target="_blank" rel="noreferrer noopener">
+                          <img src="assets/banner-ecommerce.png" alt="Banner de la plataforma eCommerce Magical Alliance" width="1024" height="358" loading="lazy" decoding="async">
+                        </a>
+                        <figcaption><b>Plataforma eCommerce full stack</b>Magical Alliance: aplicación en Java y Spring Boot con registro y roles, catálogo, carrito, pedidos, historial y control de stock. Proyecto final de certificación.</figcaption>
+                      </figure>
+                      <figure>
+                        <a href="https://github.com/manecist/Arte-e-ilustracion-personalizada-tradicional" target="_blank" rel="noreferrer noopener">
+                          <img src="assets/banner-arte.png" alt="Ilustración tradicional sobre papel: paisaje nocturno con luna y cerezos" width="1024" height="358" loading="lazy" decoding="async">
+                        </a>
+                        <figcaption><b>Arte sobre papel</b>Ilustración tradicional personalizada y práctica continua de técnica: anatomía, composición, línea y color, en digital y sobre papel.</figcaption>
+                      </figure>
+                      <figure>
+                        <a href="https://github.com/manecist/Modelos-3D" target="_blank" rel="noreferrer noopener">
+                          <img src="assets/banner-3d.png" alt="Piezas modeladas en 3D, impresas en PLA y pintadas a mano" width="1024" height="358" loading="lazy" decoding="async">
+                        </a>
+                        <figcaption><b>Modelado 3D para impresión</b>Práctica personal de modelado y preparación de mallas: espesores, soportes y tolerancias para impresión en PLA, con acabado pintado a mano.</figcaption>
+                      </figure>
+                    </div>
+                  </article>
+                </div>
+
+                <div>
+                  <article class="tm-block">
+                    <h4>Especialidades</h4>
+                    <ul class="tm-skills">
+                      <li><span class="tm-skill-name">Dirección de arte y concept art</span></li>
+                      <li><span class="tm-skill-name">Ilustración digital y diseño de personajes</span></li>
+                      <li><span class="tm-skill-name">Diseño de HUD e interfaz</span></li>
+                      <li><span class="tm-skill-name">Diseño y producción editorial</span></li>
+                      <li><span class="tm-skill-name">Modelado, texturizado y animación 3D</span></li>
+                      <li><span class="tm-skill-name">Desarrollo web y full stack Java</span></li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Trayectoria</h4>
+                    <ul class="tm-timeline">
+                      <li>
+                        <em>2026 · Presente</em>
+                        <b>Socia fundadora y administradora</b>
+                        <span>Studios Conari SpA. Dirección de arte e ilustración, producción
+                              editorial, modelado y animación 3D, desarrollo del sitio web y
+                              administración de la sociedad.</span>
+                      </li>
+                      <li>
+                        <em>2024</em>
+                        <b>Educadora</b>
+                        <span>Academia Aliwen. Diseño y ejecución de lecciones con material
+                              didáctico adaptado a distintos niveles de aprendizaje.</span>
+                      </li>
+                      <li>
+                        <em>2022 · 2023</em>
+                        <b>Matrona · Reactivación del Programa de Cáncer Cervicouterino</b>
+                        <span>Servicio de Salud Metropolitano Sur Oriente. Liderazgo de campañas
+                              de tamizaje en clínicas móviles y seguimiento de casos.</span>
+                      </li>
+                      <li>
+                        <em>2019 · 2021</em>
+                        <b>Matrona clínica</b>
+                        <span>Hospital San José de Coronel y Hospital de Andacollo. Emergencias
+                              obstétricas, atención del ciclo vital y encargada de la Clínica de
+                              Lactancia Materna.</span>
+                      </li>
+                      <li>
+                        <em>2018</em>
+                        <b>Matrona titulada con distinción</b>
+                        <span>Universidad San Sebastián, sede Concepción.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Certificaciones</h4>
+                    <ul class="tm-timeline">
+                      <li>
+                        <em>2025 · 2026</em>
+                        <b>Desarrollo de Aplicaciones Full Stack Java</b>
+                        <span>480 horas · SENCE y Talento Digital, con credencial digital
+                              verificable.</span>
+                      </li>
+                      <li>
+                        <em>2026 · En curso</em>
+                        <b>Análisis de Datos de Google</b>
+                        <span>Coursera. Cinco cursos aprobados.</span>
+                      </li>
+                      <li>
+                        <em>2024</em>
+                        <b>Diseño y Programación Web</b>
+                        <span>100 horas · AIEP, SENCE y Fundación Telefónica.</span>
+                      </li>
+                      <li>
+                        <em>2024</em>
+                        <b>Marketing Digital y Gestión Estratégica</b>
+                        <span>90 horas · AIEP, SENCE y Fundación Telefónica.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Herramientas</h4>
+                    <ul class="tm-tags">
+                      <li>Clip Studio Paint</li>
+                      <li>Blender</li>
+                      <li>Photoshop</li>
+                      <li>Java</li>
+                      <li>Spring Boot</li>
+                      <li>MySQL</li>
+                      <li>HTML5 y CSS</li>
+                      <li>JavaScript</li>
+                      <li>Control de versiones</li>
+                    </ul>
+                  </article>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- ---------- Kevin Alexis del Río Morgado ---------- -->
+<section class="tm-panel" id="kevin" role="tabpanel" aria-labelledby="tab-kevin" tabindex="0" hidden>
+            <div class="tm-panel-inner">
+              <div class="tm-panel-grid">
+
+                <div>
+                  <article class="tm-block">
+                    <h3>Kevin Alexis del Río Morgado</h3>
+                    <p class="tm-panel-role">Socio fundador · Dirección técnica y Lead Programmer</p>
+                    <p class="tm-bio">
+                      Ingeniero en Informática titulado en Duoc UC, especializado en Business
+                      Intelligence y liderazgo de proyectos TI. Es socio fundador de Studios
+                      Conari SpA, donde combina la gestión societaria de la empresa con la
+                      dirección técnica del desarrollo.
+                    </p>
+                    <p class="tm-bio">
+                      Como Lead Programmer define la arquitectura de software, los estándares de
+                      desarrollo y el pipeline de producción, coordinando el trabajo técnico y
+                      creativo del equipo. Antes lideró el área de informática de DailyFresh,
+                      donde implementó tableros en Power BI y SAP BusinessObjects para sustentar
+                      la toma de decisiones en datos.
+                    </p>
+                    <ul class="tm-links">
+                      <li>
+                        <a href="https://github.com/KdelRio" target="_blank" rel="noreferrer noopener">
+                          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+                          github.com/KdelRio
+                        </a>
+                      </li>
+                      <li>
+                        <a href="https://www.linkedin.com/in/kevindelrio" target="_blank" rel="noreferrer noopener">
+                          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.6 5.3H.9V16h2.7V5.3ZM2.25 0a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2ZM16 9.9c0-3-1.6-4.8-4-4.8-1.4 0-2.4.6-3 1.6V5.3H6.3V16H9v-5.6c0-1.4.7-2.3 1.9-2.3s1.8.8 1.8 2.3V16H16V9.9Z"/></svg>
+                          LinkedIn
+                        </a>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Portafolio</h4>
+                    <div class="tm-work">
+                      <figure>
+                        <img src="assets/banner-origen.png" alt="Banner de Proyecto Origen" width="1024" height="358" loading="lazy" decoding="async">
+                        <figcaption><b>Proyecto Origen</b>Prototipo RPG 2D top-down en Godot Engine. Desarrollo íntegro.</figcaption>
+                      </figure>
+                      <figure>
+                        <img src="assets/banner-resonancia.png" alt="Banner de Proyecto Resonancia" width="1024" height="384" loading="lazy" decoding="async">
+                        <figcaption><b>Proyecto Resonancia</b>Videojuego de ritmo arcade con biblioteca musical y versus. Desarrollo íntegro.</figcaption>
+                      </figure>
+                      <figure>
+                        <img src="assets/banner-vilu.png" alt="Banner de VILU" width="1024" height="358" loading="lazy" decoding="async">
+                        <figcaption><b>VILU</b>Proyecto original en desarrollo. Responsable de todo el trabajo en Godot Engine.</figcaption>
+                      </figure>
+                      <figure>
+                        <a href="https://github.com/KdelRio/Proyecto-Tower" target="_blank" rel="noreferrer noopener">
+                          <img src="assets/banner-tower.png" alt="Banner de Dungeon Ascent" width="1024" height="358" loading="lazy" decoding="async">
+                        </a>
+                        <figcaption><b>Dungeon Ascent</b>RPG de mazmorras top-down en Godot Engine: 10 pisos, 10 jefes y ciudad base. Desarrollo íntegro, código abierto en GitHub.</figcaption>
+                      </figure>
+                    </div>
+                  </article>
+                </div>
+
+                <div>
+                  <article class="tm-block">
+                    <h4>Especialidades</h4>
+                    <ul class="tm-skills">
+                      <li><span class="tm-skill-name">Desarrollo en Godot Engine</span></li>
+                      <li><span class="tm-skill-name">Arquitectura y calidad de software</span></li>
+                      <li><span class="tm-skill-name">Business Intelligence y datos</span></li>
+                      <li><span class="tm-skill-name">Gestión de proyectos y equipos TI</span></li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Trayectoria</h4>
+                    <ul class="tm-timeline">
+                      <li>
+                        <em>2026 · Presente</em>
+                        <b>Socio fundador y Lead Programmer</b>
+                        <span>Studios Conari SpA. Gestión societaria y dirección técnica: arquitectura,
+                              estándares de desarrollo, pipeline de producción y postulación a fondos
+                              públicos para la industria creativa.</span>
+                      </li>
+                      <li>
+                        <em>2022 · 2025</em>
+                        <b>Jefe de Informática</b>
+                        <span>DailyFresh. Gestión integral del área TI, tableros en Power BI y SAP, y
+                              rediseño del flujo de información de la empresa.</span>
+                      </li>
+                      <li>
+                        <em>2022</em>
+                        <b>Técnico en práctica profesional</b>
+                        <span>Inversiones Terabytes Ltda. Redes y telecomunicaciones bajo la Ley de
+                              Ductos 20.808, fibra óptica y certificación de redes internas.</span>
+                      </li>
+                      <li>
+                        <em>2018 · 2023</em>
+                        <b>Ingeniero en Informática</b>
+                        <span>Instituto Profesional Duoc UC. Titulado en septiembre de 2023.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Certificaciones</h4>
+                    <ul class="tm-timeline">
+                      <li>
+                        <em>Duoc UC</em>
+                        <b>Certificado internacional nivel intermedio</b>
+                        <span>Arquitectura, programación y calidad de software; modelos de datos;
+                              inteligencia de negocios; gestión de proyectos informáticos.</span>
+                      </li>
+                      <li>
+                        <em>2026 · Google</em>
+                        <b>Google Data Analytics</b>
+                        <span>Analítica y pensamiento analítico, decisiones basadas en datos y
+                              gestión de partes interesadas.</span>
+                      </li>
+                      <li>
+                        <em>2024 · SAP</em>
+                        <b>SAP BusinessObjects Essentials</b>
+                      </li>
+                      <li>
+                        <em>2021 · TOEIC</em>
+                        <b>Inglés avanzado</b>
+                        <span>Certificación TOEIC Bridge.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Herramientas</h4>
+                    <ul class="tm-tags">
+                      <li>Godot Engine</li>
+                      <li>Python</li>
+                      <li>SQL</li>
+                      <li>Power BI</li>
+                      <li>SAP BusinessObjects</li>
+                      <li>Control de versiones</li>
+                      <li>MS Project</li>
+                      <li>Excel avanzado</li>
+                    </ul>
+                  </article>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- ---------- Elías Alejandro Medel Collao ---------- -->
+<section class="tm-panel" id="elias" role="tabpanel" aria-labelledby="tab-elias" tabindex="0" hidden>
+            <div class="tm-panel-inner">
+              <div class="tm-panel-grid">
+
+                <div>
+                  <article class="tm-block">
+                    <h3>Elías Alejandro Medel Collao</h3>
+                    <p class="tm-panel-role">Encargado de diseño 3D, rigging, animación y VFX</p>
+                    <p class="tm-bio">
+                      Artista 3D formado en Duoc UC. Dentro del estudio lleva el diseño
+                      tridimensional, el rigging, la animación y los efectos visuales. Su
+                      trabajo se centra en la actuación de personajes: el movimiento
+                      corporal, el timing, la expresión facial y la relación entre el
+                      diálogo y la interpretación.
+                    </p>
+                    <p class="tm-bio">
+                      Su proceso parte del dibujo. Antes de llevar un personaje al 3D
+                      desarrolla hojas de rotación, estudios de expresiones y poses que
+                      fijan proporciones y mantienen la coherencia visual durante toda la
+                      producción. En animación trabaja por etapas —referencia, blocking,
+                      refinamiento y corrección—; en lip sync, analizando el audio,
+                      identificando fonemas y construyendo las poses de boca.
+                    </p>
+                    <ul class="tm-links">
+                      <li>
+                        <a href="https://github.com/Rancek" target="_blank" rel="noreferrer noopener">
+                          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+                          github.com/Rancek
+                        </a>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Portafolio</h4>
+                    <div class="tm-work">
+                      <figure>
+                        <a href="https://github.com/Rancek/Animaciones-3D" target="_blank" rel="noreferrer noopener">
+                          <img src="assets/banner-animacion.png" alt="Fotogramas de sus animaciones de personaje en 3D" width="1024" height="358" loading="lazy" decoding="async">
+                        </a>
+                        <figcaption><b>Animación 3D y lip sync</b>Ciclos de caminata y carrera, caminata con actuación y ejercicios de sincronización labial, animados en Autodesk Maya.</figcaption>
+                      </figure>
+                      <figure>
+                        <a href="https://github.com/Rancek/Dibujos-de-Personajes" target="_blank" rel="noreferrer noopener">
+                          <img src="assets/banner-personajes.png" alt="Hoja de rotación de personaje" width="1024" height="358" loading="lazy" decoding="async">
+                        </a>
+                        <figcaption><b>Diseño de personajes</b>Hojas de rotación, estudios de expresiones, poses y entornos, dibujados en Photoshop sobre tableta como paso previo a la animación.</figcaption>
+                      </figure>
+                      <figure>
+                        <img src="assets/banner-vilu.png" alt="Banner de VILU" width="1024" height="358" loading="lazy" decoding="async">
+                        <figcaption><b>VILU</b>Proyecto original en desarrollo. Diseño 3D, rigging, animación y efectos visuales.</figcaption>
+                      </figure>
+                    </div>
+                  </article>
+                </div>
+
+                <div>
+                  <article class="tm-block">
+                    <h4>Especialidades</h4>
+                    <ul class="tm-skills">
+                      <li><span class="tm-skill-name">Diseño y modelado 3D</span></li>
+                      <li><span class="tm-skill-name">Rigging de personajes</span></li>
+                      <li><span class="tm-skill-name">Animación de personajes 3D</span></li>
+                      <li><span class="tm-skill-name">Efectos visuales</span></li>
+                      <li><span class="tm-skill-name">Lip sync y sincronización labial</span></li>
+                      <li><span class="tm-skill-name">Acting y expresión facial</span></li>
+                      <li><span class="tm-skill-name">Texturizado y materiales</span></li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Trayectoria</h4>
+                    <ul class="tm-timeline">
+                      <li>
+                        <em>Actualidad</em>
+                        <b>Diseño 3D, rigging, animación y VFX</b>
+                        <span>Studios Conari SpA. Encargado del área tridimensional:
+                              modelado, rigging de personajes, animación y efectos
+                              visuales de los proyectos del estudio.</span>
+                      </li>
+                      <li>
+                        <em>Actualidad</em>
+                        <b>Artista 3D independiente</b>
+                        <span>Modelado, animación y lip sync por encargo.</span>
+                      </li>
+                      <li>
+                        <em>Formación</em>
+                        <b>Duoc UC</b>
+                        <span>Formación en animación: animación de personajes, lip sync,
+                              acting, dibujo y desarrollo visual.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Proceso de trabajo</h4>
+                    <ul class="tm-timeline">
+                      <li>
+                        <em>Animación</em>
+                        <b>Referencia · Blocking · Refinamiento</b>
+                        <span>De la idea a la animación final, con corrección continua
+                              sobre timing, peso e intención del movimiento.</span>
+                      </li>
+                      <li>
+                        <em>Lip sync</em>
+                        <b>Audio · Fonemas · Sincronización</b>
+                        <span>Análisis del diálogo, construcción de poses de boca y ajuste
+                              de la expresión facial y el lenguaje corporal.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <article class="tm-block">
+                    <h4>Herramientas</h4>
+                    <ul class="tm-tags">
+                      <li>Autodesk Maya</li>
+                      <li>ZBrush</li>
+                      <li>Substance 3D Painter</li>
+                      <li>Photoshop</li>
+                      <li>After Effects</li>
+                      <li>Premiere Pro</li>
+                      <li>Tableta digital</li>
+                    </ul>
+                  </article>
+                </div>
+
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CIERRE ================= -->
+    <section class="tm-cta">
+      <div class="shell mo-reveal">
+        <h2>¿Tienes un proyecto en mente?</h2>
+        <p>Trabajamos con estudios, marcas y proyectos culturales que buscan
+           una voz visual y narrativa propia. Conversemos.</p>
+        <div class="actions">
+          <a class="btn primary" href="index.html#contacto">Contactar al estudio →</a>
+          <a class="btn ghost" href="index.html#trayectoria">Ver trayectoria</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-row">
+      <p>© <span id="year">2026</span> Studios Conari. Todos los derechos reservados.</p>
+      <a href="index.html#inicio">Volver al inicio ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

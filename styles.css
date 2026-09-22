@@ -31,20 +31,31 @@ html[data-theme="day"]{
 }
 
 *{box-sizing:border-box}
+
+/* Fondo en una capa fija del tamaño de la pantalla.
+   No se usa background-attachment:fixed porque iOS Safari lo rompe; y con
+   scroll el area del fondo pasaba a ser todo el documento, lo que ampliaba
+   la imagen mas de 7 veces en movil. */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background-image:var(--page-overlay),var(--bg-image);
+  background-size:cover;
+  background-position:center top;
+}
 html{scroll-behavior:smooth}
 body{
   margin:0;
   color:var(--text);
   background-color:var(--bg);
-  background-image:var(--page-overlay),var(--bg-image);
-  background-size:cover;
-  background-position:center top;
-  background-attachment:fixed;
   font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 }
 
 a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 .shell{width:min(1240px,calc(100% - 48px));margin:auto}
 
 .site-header{
@@ -81,32 +92,55 @@ html[data-theme="day"] .site-header{
 .nav a{opacity:.96}
 .nav a:hover{color:var(--gold)}
 
+/* Interruptor de tema. El deslizante y los iconos se colocan por coordenada y
+   no con reparto flexible: antes sus posiciones dependian del espacio sobrante
+   y no coincidian, de modo que el sol asomaba por el borde del deslizante.
+   Caja de 82x40 con borde de 1px, asi que el area util mide 80x38.
+   El deslizante mide 28 y se separa 6 de cada extremo: sus centros caen
+   exactamente en 20 y en 60, que es donde van los dos iconos. */
 .theme-toggle{
+  position:relative;
   flex:0 0 auto;
   width:82px;
   height:40px;
-  padding:0 8px;
+  padding:0;
   border:1px solid var(--line-strong);
   border-radius:999px;
   background:rgba(10,20,40,.42);
   color:var(--text);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
   cursor:pointer;
 }
 html[data-theme="day"] .theme-toggle{background:rgba(255,255,255,.48)}
-.theme-toggle span{font-size:14px;line-height:1}
+
+.theme-toggle span{
+  position:absolute;
+  top:50%;
+  transform:translate(-50%,-50%);
+  font-size:14px;
+  line-height:1;
+  transition:opacity .25s ease;
+}
+.theme-toggle span:first-of-type{left:20px}   /* sol */
+.theme-toggle span:last-of-type{left:60px}    /* luna */
+
 .theme-toggle i{
+  position:absolute;
+  top:50%;
+  left:46px;                                   /* modo nocturno: a la derecha */
   width:28px;
   height:28px;
+  margin-top:-14px;
   border-radius:50%;
   background:#fff;
   box-shadow:0 4px 14px rgba(0,0,0,.25);
-  transform:translateX(18px);
-  transition:transform .25s ease;
+  transition:left .25s ease;
 }
-html[data-theme="day"] .theme-toggle i{transform:translateX(-18px)}
+html[data-theme="day"] .theme-toggle i{left:6px}
+
+/* Se apaga el icono que queda bajo el deslizante: asi queda visible solo el
+   del modo al que se cambia, y ninguno puede asomar por el borde. */
+html[data-theme="night"] .theme-toggle span:last-of-type{opacity:0}
+html[data-theme="day"] .theme-toggle span:first-of-type{opacity:0}
 
 .section-full{position:relative;padding:96px 0}
 .hero{
@@ -138,7 +172,11 @@ html[data-theme="day"] .theme-toggle i{transform:translateX(-18px)}
   line-height:.92;
   letter-spacing:-.05em;
 }
-.hero h1 span{color:var(--gold)}
+/* El titulo va envuelto en spans de .mo-linea para la animacion, asi que el
+   dorado se marca con su propia clase y no con el selector de span. */
+.hero h1 .hero-acento{color:var(--gold)}
+/* El canvas de particulas y el halo van detras del contenido del hero */
+.hero .shell{position:relative;z-index:1}
 .lead{
   max-width:760px;
   margin:24px 0 0;
@@ -233,11 +271,18 @@ html[data-theme="day"] .btn.ghost{background:rgba(255,255,255,.26)}
   letter-spacing:.11em;
   font-size:.73rem;
 }
+/* Cada banner conserva su proporcion natural. Antes se forzaba 2048/768 con
+   object-fit:cover, que solo calzaba con Resonancia: a Origen y a VILU, que
+   son mas panoramicos, les recortaba los lados y con ellos el titulo. */
+.trajectory-item .mo-zoom{
+  display:block;
+  width:100%;
+  border:1px solid var(--line-strong);
+}
 .trajectory-item img{
   width:100%;
-  aspect-ratio:2048/768;
-  object-fit:cover;
-  border:1px solid var(--line-strong);
+  height:auto;
+  display:block;
 }
 .trajectory-item h3{margin:10px 0 6px;font-size:2rem;line-height:1}
 .trajectory-item p{margin:0;color:var(--muted);font-size:1rem;line-height:1.5;max-width:34ch}
@@ -301,6 +346,10 @@ html[data-theme="day"] .site-footer{background:rgba(245,248,252,.72)}
 .footer-row a:hover{color:var(--gold)}
 
 @media (max-width: 1080px){
+  /* Encuadre: al angostarse la pantalla, cover recorta por los lados y los
+     personajes (66%-90% del ancho) quedaban fuera. Se desplaza el punto de
+     anclaje para mantenerlos en cuadro. */
+  body::before{background-position:78% top}
   .intro-grid,
   .brand-grid,
   .contact-grid{grid-template-columns:1fr}
@@ -321,7 +370,9 @@ html[data-theme="day"] .site-footer{background:rgba(245,248,252,.72)}
 }
 
 @media (max-width: 640px){
-  body{background-attachment:scroll}
+  /* En telefono solo cabe el 26% del ancho: se encuadra al caballero, que
+     queda en el tercio derecho, con menos texto encima. */
+  body::before{background-position:72% top}
   .hero h1{font-size:clamp(2.8rem,15vw,4.3rem)}
   .study-heading h2,.section-heading h2,.contact-copy h2{font-size:2.45rem}
   .actions{flex-direction:column;align-items:flex-start}
@@ -387,3 +438,77 @@ html[data-theme="day"] .site-footer{background:rgba(245,248,252,.72)}
 
 #inicio{scroll-margin-top:92px}
 .footer-row a{position:relative;z-index:2;cursor:pointer}
+
+/* ===========================================================================
+   Capacidades del estudio
+   Seccion movida desde la pagina de equipo: describe al estudio, no a una
+   persona, asi que su lugar es el landing, entre Marca y Contacto.
+   =========================================================================== */
+.caps-section{padding-top:80px}
+
+/* Cifras del estudio */
+.caps-cifras{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px 54px;
+  margin:0 0 clamp(30px,3.4vw,46px);
+  padding-top:28px;
+  border-top:1px solid var(--line);
+}
+.caps-cifra b{
+  display:block;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(2.1rem,3.4vw,3rem);
+  line-height:1;
+  color:var(--gold);
+  font-variant-numeric:tabular-nums;
+}
+.caps-cifra span{
+  display:block;
+  margin-top:8px;
+  font-size:.74rem;
+  font-weight:800;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+
+.caps-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(248px,1fr));
+  gap:clamp(16px,2vw,24px);
+}
+.cap{
+  padding:clamp(26px,2.6vw,36px);
+  border-radius:20px;
+  transition:border-color .4s ease;
+}
+.cap:hover{border-color:var(--line-strong)}
+.cap h3{
+  margin:20px 0 10px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:1.4rem;
+}
+.cap p{margin:0;color:var(--muted);line-height:1.65;font-size:.98rem}
+
+/* El icono se dibuja al entrar la tarjeta en pantalla, y otra vez al pasar
+   el cursor. El trazo arranca oculto con stroke-dashoffset. */
+.cap-icon{
+  width:52px;
+  height:52px;
+  stroke:var(--gold);
+  fill:none;
+  stroke-width:1.3;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.cap-icon > *{stroke-dasharray:200;stroke-dashoffset:200}
+.cap.is-in .cap-icon > *{animation:mo-draw 1.4s cubic-bezier(.22,.61,.36,1) forwards}
+.cap:hover .cap-icon > *{animation:mo-draw 1.1s cubic-bezier(.22,.61,.36,1) forwards}
+
+@media (prefers-reduced-motion:reduce){
+  .cap-icon > *{stroke-dashoffset:0}
+  .cap.is-in .cap-icon > *,
+  .cap:hover .cap-icon > *{animation:none}
+  .cap{transition:none}
+}
