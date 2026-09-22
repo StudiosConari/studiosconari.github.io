@@ -8,7 +8,8 @@
 /* --- Hero con parallax por capas ----------------------------------------- */
 .tm-hero{
   position:relative;
-  min-height:100svh;
+  /* Sin alto minimo: el contenido ya incluye el selector y estirar a
+     pantalla completa solo dejaba un hueco bajo las tarjetas. */
   display:flex;
   align-items:center;
   overflow:hidden;
@@ -48,6 +49,10 @@
 
 /* --- Secciones ----------------------------------------------------------- */
 .tm-section{padding:clamp(72px,9vw,124px) 0}
+/* El detalle sigue al hero de inmediato: el hero ya aporta su propio
+   relleno inferior, asi que aqui basta un respiro corto. */
+.tm-section--detalle{padding-top:clamp(16px,2vw,28px)}
+.tm-section--detalle .tm-stage{margin-top:0}
 .tm-section-head{max-width:70ch;margin:0 0 clamp(36px,4.6vw,60px)}
 .tm-section-head h2{
   margin:0 0 16px;
