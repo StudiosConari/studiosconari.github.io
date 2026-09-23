@@ -446,33 +446,6 @@ html[data-theme="day"] .site-footer{background:rgba(245,248,252,.72)}
    =========================================================================== */
 .caps-section{padding-top:80px}
 
-/* Cifras del estudio */
-.caps-cifras{
-  display:flex;
-  flex-wrap:wrap;
-  gap:14px 54px;
-  margin:0 0 clamp(30px,3.4vw,46px);
-  padding-top:28px;
-  border-top:1px solid var(--line);
-}
-.caps-cifra b{
-  display:block;
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:clamp(2.1rem,3.4vw,3rem);
-  line-height:1;
-  color:var(--gold);
-  font-variant-numeric:tabular-nums;
-}
-.caps-cifra span{
-  display:block;
-  margin-top:8px;
-  font-size:.74rem;
-  font-weight:800;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  color:var(--muted);
-}
-
 .caps-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(248px,1fr));
