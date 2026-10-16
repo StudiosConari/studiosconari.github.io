@@ -1,0 +1,16 @@
+# Pagina de error propia (copia de la portada)
+ErrorDocument 404 /404.html
+
+# No listar el contenido de las carpetas
+Options -Indexes
+
+# Forzar HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Bloquear archivos internos del repositorio
+<FilesMatch "\.(md|gitignore)$">
+    Require all denied
+</FilesMatch>
